@@ -96,6 +96,12 @@ public class TableView implements IViewContribution, IPersonListener {
 		super();
 		icon = new ImageIcon(this.getClass().getResource("/icons/table.png"));
 		table = new JTable(new TableModel());
+
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(0).setMaxWidth(100);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setMaxWidth(100);
+
 		table.setColumnSelectionAllowed(false);
 		table.setRowSelectionAllowed(true);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
