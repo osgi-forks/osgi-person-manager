@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<component name="com.siemens.ct.pm.ui.actions.person.deletePersonActionContribution">
+    <implementation
+        class="com.siemens.ct.pm.ui.actions.person.DeletePersonActionContribution"/>
+    <service>
+        <provide
+            interface="com.siemens.ct.pm.application.service.IActionContribution"/>
+    </service>
+    <service>
+        <provide
+            interface="com.siemens.ct.pm.application.service.ISelectionListener"/>
+    </service>
+    <reference name="PersonManager"
+        interface="com.siemens.ct.pm.model.IPersonManager"
+        bind="setPersonManager"
+        unbind="removePersonManager"
+        cardinality="0..1"
+        policy="dynamic"/>
+</component>
