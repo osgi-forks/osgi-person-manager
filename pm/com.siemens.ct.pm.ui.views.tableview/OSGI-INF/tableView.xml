@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<component name="com.siemens.ct.pm.ui.views.tableView">
+    <implementation
+        class="com.siemens.ct.pm.ui.views.tableview.TableView"/>
+
+    <service>
+        <provide
+            interface="com.siemens.ct.pm.application.service.IViewContribution"/>
+    </service>
+    <service>
+        <provide
+            interface="com.siemens.ct.pm.model.IPersonListener"/>
+    </service>
+
+    <reference name="PersonManager"
+        interface="com.siemens.ct.pm.model.IPersonManager"
+        bind="setPersonManager"
+        unbind="removePersonManager"
+        cardinality="0..1"
+        policy="dynamic"/>
+     <reference name="SelectionService"
+        interface="com.siemens.ct.pm.application.service.ISelectionService"
+        bind="setSelectionService"
+        unbind="removeSelectionService"
+        cardinality="0..1"
+        policy="dynamic"/>
+ </component>
