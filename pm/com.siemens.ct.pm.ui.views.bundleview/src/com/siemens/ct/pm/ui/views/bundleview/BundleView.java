@@ -106,7 +106,6 @@ public class BundleView implements IViewContribution {
 		@Override
 		public void setValueAt(Object value, int row, int col) {
 			Bundle selectedBundle = bundles[row];
-			System.out.println("Bundle: " + selectedBundle);
 			if (selectedBundle.getState() == Bundle.ACTIVE) {
 				try {
 					selectedBundle.stop();
