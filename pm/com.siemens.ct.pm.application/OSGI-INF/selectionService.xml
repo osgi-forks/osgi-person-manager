@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<component name="com.siemens.ct.pm.application.service.selectionservice">
+    <implementation
+        class="com.siemens.ct.pm.application.service.SelectionService"/>
+    <service>
+        <provide
+            interface="com.siemens.ct.pm.application.service.ISelectionService"/>
+    </service>
+    <reference name="SelectionListener"
+        interface="com.siemens.ct.pm.application.service.ISelectionListener"
+        bind="registerSelectionListener"
+        unbind="unregisterSelectionListener"
+        cardinality="0..n"
+        policy="dynamic"/>
+</component>
