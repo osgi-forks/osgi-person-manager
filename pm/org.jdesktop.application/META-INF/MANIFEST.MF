@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Swing Application Framework
+Bundle-SymbolicName: org.jdesktop.application
+Bundle-Version: 1.0.3
+Bundle-ClassPath: appframework-1.0.3.jar,
+ swing-worker-1.1.jar
+Bundle-Vendor: Sun Microsystems
+Export-Package: org.jdesktop.application,
+ org.jdesktop.swingworker
+Require-Bundle: org.eclipse.osgi
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
