@@ -66,6 +66,7 @@ public class PersonManager implements IPersonManager {
 	}
 
 	public synchronized void removePersonListener(IPersonListener personListener) {
+		System.out.println("PersonManager.removePersonListener(): " + personListener);
 		personListeners.remove(personListener);
 	}
 }
