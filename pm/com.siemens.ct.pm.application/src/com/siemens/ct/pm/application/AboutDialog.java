@@ -7,12 +7,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle;
-
-import com.swtdesigner.SwingResourceManager;
 
 public class AboutDialog extends JDialog {
 
@@ -50,7 +49,7 @@ public class AboutDialog extends JDialog {
 
 		JLabel label;
 		label = new JLabel();
-		label.setIcon(SwingResourceManager.getIcon(AboutDialog.class, "resources/about.gif"));
+		label.setIcon(new ImageIcon(this.getClass().getResource("resources/about.gif")));
 
 		JLabel personManagerLabel;
 		personManagerLabel = new JLabel();
@@ -233,5 +232,4 @@ public class AboutDialog extends JDialog {
 		pack();
 		//
 	}
-
 }
