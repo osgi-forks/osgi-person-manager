@@ -131,6 +131,7 @@ public class BundleView implements IViewContribution {
 					e1.printStackTrace();
 				}
 			}
+			fireTableDataChanged();
 		}
 	}
 
