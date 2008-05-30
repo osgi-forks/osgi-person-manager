@@ -141,6 +141,11 @@ public class TableView implements IViewContribution, IPersonListener {
 		return view;
 	}
 
+	@Override
+	public int getPosition() {
+		return 2;
+	}
+
 	public synchronized void removeSelectionService(ISelectionService selectionService) {
 		this.selectionService = null;
 	}
