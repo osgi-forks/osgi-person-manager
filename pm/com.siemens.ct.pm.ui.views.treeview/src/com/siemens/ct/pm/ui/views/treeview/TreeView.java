@@ -115,21 +115,23 @@ public class TreeView implements IViewContribution, IPersonListener {
 		return view;
 	}
 
-	public synchronized void removeSelectionService() {
-		selectionService = null;
+	public synchronized void removeSelectionService(ISelectionService selectionService) {
+		this.selectionService = null;
 	}
 
 	public synchronized void setSelectionService(ISelectionService selectionService) {
 		this.selectionService = selectionService;
 	}
 
-	public synchronized void removePersonManager() {
-		personManager = null;
+	public synchronized void removePersonManager(IPersonManager personManager) {
+		System.out.println("TreeView.removePersonManager()");
+		this.personManager = null;
 		top.removeAllChildren();
 		((DefaultTreeModel) tree.getModel()).reload(top);
 	}
 
 	public synchronized void setPersonManager(IPersonManager personManager) {
+		System.out.println("TreeView.setPersonManager()");
 		this.personManager = personManager;
 		createNodes(top);
 	}
