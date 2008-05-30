@@ -172,4 +172,9 @@ public class BundleView implements IViewContribution {
 	public JComponent getView() {
 		return view;
 	}
+
+	@Override
+	public int getPosition() {
+		return 100;
+	}
 }
