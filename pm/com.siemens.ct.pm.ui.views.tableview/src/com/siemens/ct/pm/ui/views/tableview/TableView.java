@@ -40,11 +40,14 @@ public class TableView implements IViewContribution, IPersonListener {
 	private ISelectionService selectionService;
 	private final JTable table;
 
-	public synchronized void removePersonManager() {
-		personManager = null;
+	public synchronized void removePersonManager(IPersonManager personManager) {
+		System.out.println("TableView.removePersonManager(): " + personManager);
+		this.personManager = null;
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
 
 	public synchronized void setPersonManager(IPersonManager personManager) {
+		System.out.println("TableView.setPersonManager(): " + personManager);
 		this.personManager = personManager;
 	}
 
@@ -149,8 +152,8 @@ public class TableView implements IViewContribution, IPersonListener {
 		return view;
 	}
 
-	public synchronized void removeSelectionService() {
-		selectionService = null;
+	public synchronized void removeSelectionService(ISelectionService selectionService) {
+		this.selectionService = null;
 	}
 
 	public synchronized void setSelectionService(ISelectionService selectionService) {
