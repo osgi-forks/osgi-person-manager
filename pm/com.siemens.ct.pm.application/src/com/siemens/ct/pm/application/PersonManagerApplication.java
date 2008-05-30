@@ -16,6 +16,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -27,6 +28,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
+import org.jdesktop.application.Action;
 import org.jdesktop.application.SingleFrameApplication;
 
 public class PersonManagerApplication extends SingleFrameApplication {
@@ -34,6 +36,17 @@ public class PersonManagerApplication extends SingleFrameApplication {
 	private JMenuBar menuBar;
 	private JToolBar toolBar;
 	private JTabbedPane viewContainer;
+	private AboutDialog aboutDialog;
+
+	@Action
+	public void showAboutDialog() {
+		if (aboutDialog == null) {
+			JFrame mainFrame = getMainFrame();
+			aboutDialog = new AboutDialog(mainFrame);
+			aboutDialog.setLocationRelativeTo(mainFrame);
+		}
+		show(aboutDialog);
+	}
 
 	private javax.swing.Action getAction(String actionName) {
 		return getContext().getActionMap().get(actionName);
@@ -61,6 +74,8 @@ public class PersonManagerApplication extends SingleFrameApplication {
 		String[] fileMenuActionNames = { "quit" };
 		menuBar.add(createMenu("fileMenu", fileMenuActionNames));
 		menuBar.add(createMenu("actionsMenu", null));
+		String[] helpMenuActionNames = { "showAboutDialog" };
+		menuBar.add(createMenu("helpMenu", helpMenuActionNames));
 		return menuBar;
 	}
 
