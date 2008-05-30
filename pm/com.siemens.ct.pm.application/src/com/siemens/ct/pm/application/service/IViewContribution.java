@@ -24,4 +24,6 @@ public interface IViewContribution {
 	public Icon getIcon();
 
 	public String getName();
+
+	public int getPosition();
 }
