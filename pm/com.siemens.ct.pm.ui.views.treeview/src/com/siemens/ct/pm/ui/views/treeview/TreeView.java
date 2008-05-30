@@ -27,6 +27,8 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 import com.siemens.ct.pm.application.service.ISelectionService;
 import com.siemens.ct.pm.application.service.IViewContribution;
@@ -134,6 +136,7 @@ public class TreeView implements IViewContribution, IPersonListener {
 		System.out.println("TreeView.setPersonManager()");
 		this.personManager = personManager;
 		createNodes(top);
+		expand(new TreePath(top));
 	}
 
 	@Override
@@ -174,4 +177,18 @@ public class TreeView implements IViewContribution, IPersonListener {
 		}
 		return null;
 	}
+
+	@SuppressWarnings("unchecked")
+	private void expand(TreePath parent) {
+		TreeNode node = (TreeNode) parent.getLastPathComponent();
+		if (node.getChildCount() >= 0) {
+			for (Enumeration e = node.children(); e.hasMoreElements();) {
+				TreeNode n = (TreeNode) e.nextElement();
+				TreePath path = parent.pathByAddingChild(n);
+				expand(path);
+			}
+		}
+		tree.expandPath(parent);
+	}
+
 }
