@@ -117,6 +117,11 @@ public class TreeView implements IViewContribution, IPersonListener {
 		return view;
 	}
 
+	@Override
+	public int getPosition() {
+		return 1;
+	}
+
 	public synchronized void removeSelectionService(ISelectionService selectionService) {
 		this.selectionService = null;
 	}
@@ -190,5 +195,4 @@ public class TreeView implements IViewContribution, IPersonListener {
 		}
 		tree.expandPath(parent);
 	}
-
 }
