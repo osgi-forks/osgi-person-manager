@@ -40,17 +40,6 @@ public class TableView implements IViewContribution, IPersonListener {
 	private ISelectionService selectionService;
 	private final JTable table;
 
-	public synchronized void removePersonManager(IPersonManager personManager) {
-		System.out.println("TableView.removePersonManager(): " + personManager);
-		this.personManager = null;
-		((AbstractTableModel) table.getModel()).fireTableDataChanged();
-	}
-
-	public synchronized void setPersonManager(IPersonManager personManager) {
-		System.out.println("TableView.setPersonManager(): " + personManager);
-		this.personManager = personManager;
-	}
-
 	@SuppressWarnings("serial")
 	class TableModel extends AbstractTableModel {
 
@@ -158,6 +147,18 @@ public class TableView implements IViewContribution, IPersonListener {
 
 	public synchronized void setSelectionService(ISelectionService selectionService) {
 		this.selectionService = selectionService;
+	}
+
+	public synchronized void removePersonManager(IPersonManager personManager) {
+		System.out.println("TableView.removePersonManager(): " + personManager);
+		this.personManager = null;
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+	}
+
+	public synchronized void setPersonManager(IPersonManager personManager) {
+		System.out.println("TableView.setPersonManager(): " + personManager);
+		this.personManager = personManager;
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
 
 	@Override
