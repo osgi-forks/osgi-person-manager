@@ -17,8 +17,8 @@ import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
 
-	private static ActionServiceManager actionServiceManager;
-	private static ViewServiceManager viewServiceManager;
+	private static volatile ActionServiceManager actionServiceManager;
+	private static volatile ViewServiceManager viewServiceManager;
 
 	public void start(BundleContext context) throws Exception {
 		actionServiceManager = new ActionServiceManager(context);
