@@ -12,6 +12,8 @@
 
 package com.siemens.ct.pm.ui.views.bundleview;
 
+import java.util.ArrayList;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -25,7 +27,20 @@ public class Activator implements BundleActivator {
 	}
 
 	public void start(BundleContext context) throws Exception {
-		bundles = context.getBundles();
+		Bundle[] allBundles = context.getBundles();
+		ArrayList<Bundle> bundleList = new ArrayList<Bundle>();
+
+		// Hack for adding only our relevant bundles to the list
+		for (Bundle bundle : allBundles) {
+			String symbolicName = bundle.getSymbolicName();
+			if ((symbolicName.startsWith("com.siemens.ct.pm.model") || symbolicName
+					.startsWith("com.siemens.ct.pm.ui"))
+					&& !symbolicName.equals("com.siemens.ct.pm.ui.views.bundleview")
+					&& !symbolicName.equals("com.siemens.ct.pm.model")) {
+				bundleList.add(bundle);
+			}
+		}
+		bundles = bundleList.toArray(new Bundle[] {});
 	}
 
 	public void stop(BundleContext context) throws Exception {
