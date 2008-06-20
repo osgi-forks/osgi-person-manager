@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<component name="com.siemens.ct.pm.ui.actions.person.addPersonActionContribution">
-    <implementation
-        class="com.siemens.ct.pm.ui.actions.person.AddPersonActionContribution"/>
-    <service>
-        <provide
-            interface="com.siemens.ct.pm.application.service.IActionContribution"/>
-    </service>
-</component>
