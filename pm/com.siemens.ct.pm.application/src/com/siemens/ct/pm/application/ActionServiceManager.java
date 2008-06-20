@@ -73,6 +73,7 @@ public class ActionServiceManager extends ServiceTracker {
 		return buttons;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void removedService(ServiceReference reference, Object service) {
 		List<JButton> buttons = (List<JButton>) service;
