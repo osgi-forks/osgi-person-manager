@@ -16,9 +16,6 @@ public class ActionContribution implements IActionContribution,
 	private final List<Action> actions;
 	private final DeletePersonAction deletePersonAction;
 
-	private IPersonManager personManager;
-	private IPerson selectedPerson;
-
 	public ActionContribution() {
 		super();
 		actions = new ArrayList<Action>();
@@ -46,22 +43,19 @@ public class ActionContribution implements IActionContribution,
 	@Override
 	public void selectionChanged(Object selectedObject) {
 		if (selectedObject instanceof IPerson) {
-			selectedPerson = (IPerson) selectedObject;
+			deletePersonAction.setSelectedPerson((IPerson) selectedObject);
 			deletePersonAction.setEnabled(true);
 		} else {
-			selectedPerson = null;
+			deletePersonAction.setSelectedPerson(null);
 			deletePersonAction.setEnabled(false);
 		}
-		deletePersonAction.setSelectedPerson(selectedPerson);
 	}
 
 	public synchronized void removePersonManager() {
-		personManager = null;
 		deletePersonAction.setPersonManager(null);
 	}
 
 	public synchronized void setPersonManager(IPersonManager personManager) {
-		this.personManager = personManager;
 		deletePersonAction.setPersonManager(personManager);
 	}
 }
