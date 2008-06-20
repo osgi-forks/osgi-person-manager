@@ -13,6 +13,8 @@
 package com.siemens.ct.pm.application;
 
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -43,59 +45,59 @@ public class ActionServiceManager extends ServiceTracker {
 
 	@Override
 	public Object addingService(ServiceReference reference) {
-		System.out.println("ActionServiceManager.addingService(): " + reference);
-		Action action;
+		System.out
+				.println("ActionServiceManager.addingService(): " + reference);
 
 		IActionContribution actionContribution = (IActionContribution) context
 				.getService(reference);
-		action = actionContribution.getAction();
+		List<Action> actions = actionContribution.getActions();
+		List<JButton> buttons = new ArrayList<JButton>();
+		for (Action action : actions) {
+			JButton button = new JButton(action);
+			button.setToolTipText((String) action.getValue(Action.NAME));
+			buttons.add(button);
+			toolBar.add(button);
+			toolBar.revalidate();
 
-		JButton button = new JButton(action);
-		// button.setText("");
-
-		button.setToolTipText((String) action.getValue(Action.NAME));
-
-		toolBar.add(button);
-		toolBar.revalidate();
-
-		Component[] menus = menuBar.getComponents();
-		for (Component component : menus) {
-			if (component instanceof JMenu) {
-				JMenu menu = (JMenu) component;
-				if (menu.getName().equals("actionsMenu")) {
-					menu.add(action);
+			Component[] menus = menuBar.getComponents();
+			for (Component component : menus) {
+				if (component instanceof JMenu) {
+					JMenu menu = (JMenu) component;
+					if (menu.getName().equals("actionsMenu")) {
+						menu.add(action);
+					}
 				}
 			}
+			menuBar.revalidate();
 		}
-		menuBar.revalidate();
-
-		return button;
+		return buttons;
 	}
 
 	@Override
 	public void removedService(ServiceReference reference, Object service) {
-		JButton button = (JButton) service;
+		List<JButton> buttons = (List<JButton>) service;
 
-		toolBar.remove(button);
-		toolBar.revalidate();
-		toolBar.repaint();
+		for (JButton button : buttons) {
+			toolBar.remove(button);
+			toolBar.revalidate();
+			toolBar.repaint();
 
-		Component[] menus = menuBar.getComponents();
-		for (Component component : menus) {
-			if (component instanceof JMenu) {
-				JMenu menu = (JMenu) component;
-				if (menu.getName().equals("actionsMenu")) {
-					for (int i = 0; i < menu.getItemCount(); i++) {
-						JMenuItem item = menu.getItem(i);
-						if (item.getAction() == button.getAction()) {
-							menu.remove(item);
-							break;
+			Component[] menus = menuBar.getComponents();
+			for (Component component : menus) {
+				if (component instanceof JMenu) {
+					JMenu menu = (JMenu) component;
+					if (menu.getName().equals("actionsMenu")) {
+						for (int i = 0; i < menu.getItemCount(); i++) {
+							JMenuItem item = menu.getItem(i);
+							if (item.getAction() == button.getAction()) {
+								menu.remove(item);
+								break;
+							}
 						}
 					}
 				}
 			}
 		}
-
 		context.ungetService(reference);
 	}
 

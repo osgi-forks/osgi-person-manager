@@ -12,6 +12,8 @@
 
 package com.siemens.ct.pm.application.service;
 
+import java.util.List;
+
 import javax.swing.Action;
 
 /**
@@ -19,7 +21,7 @@ import javax.swing.Action;
  * the tool bar and the menu.
  */
 public interface IActionContribution {
-	public Action getAction();
+	public List<Action> getActions();
 
 	public String getMenuLocation();
 
