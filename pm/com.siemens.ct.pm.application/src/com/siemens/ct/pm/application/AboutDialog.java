@@ -3,9 +3,11 @@ package com.siemens.ct.pm.application;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.AbstractAction;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,12 +46,14 @@ public class AboutDialog extends JDialog {
 	/**
 	 * Create the dialog
 	 */
+	@SuppressWarnings("serial")
 	public AboutDialog(Frame owner) {
 		super(owner);
 
 		JLabel label;
 		label = new JLabel();
-		label.setIcon(new ImageIcon(this.getClass().getResource("resources/about.gif")));
+		label.setIcon(new ImageIcon(this.getClass().getResource(
+				"resources/about.gif")));
 
 		JLabel personManagerLabel;
 		personManagerLabel = new JLabel();
@@ -82,11 +86,21 @@ public class AboutDialog extends JDialog {
 
 		JLabel httpmaxservermyftporgtracpmLabel;
 		httpmaxservermyftporgtracpmLabel = new JLabel();
-		httpmaxservermyftporgtracpmLabel.setText("http://max-server.myftp.org/trac/pm");
+		httpmaxservermyftporgtracpmLabel
+				.setText("http://max-server.myftp.org/trac/pm");
 
 		JButton closeButton;
 		closeButton = new JButton();
+
+		final AboutDialog dialog = this;
+		closeButton.setAction(new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dialog.setVisible(false);
+			}
+		});
 		closeButton.setText("Close");
+
 		final GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout
 				.setHorizontalGroup(groupLayout
@@ -95,7 +109,8 @@ public class AboutDialog extends JDialog {
 								groupLayout
 										.createSequentialGroup()
 										.addComponent(label)
-										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+										.addPreferredGap(
+												LayoutStyle.ComponentPlacement.RELATED)
 										.addGroup(
 												groupLayout
 														.createParallelGroup(
@@ -169,10 +184,15 @@ public class AboutDialog extends JDialog {
 																								personManagerLabel)
 																						.addComponent(
 																								aDynamicSwingLabel))
-																		.addGap(47, 47, 47))
+																		.addGap(
+																				47,
+																				47,
+																				47))
 														.addGroup(
-																groupLayout.createSequentialGroup()
-																		.addComponent(closeButton)
+																groupLayout
+																		.createSequentialGroup()
+																		.addComponent(
+																				closeButton)
 																		.addContainerGap()))));
 		groupLayout
 				.setVerticalGroup(groupLayout
@@ -224,10 +244,18 @@ public class AboutDialog extends JDialog {
 																								homepageLabel)
 																						.addComponent(
 																								httpmaxservermyftporgtracpmLabel))
-																		.addGap(20, 20, 20)
-																		.addComponent(closeButton)
-																		.addGap(11, 11, 11))
-														.addComponent(label)).addGap(1, 1, 1)));
+																		.addGap(
+																				20,
+																				20,
+																				20)
+																		.addComponent(
+																				closeButton)
+																		.addGap(
+																				11,
+																				11,
+																				11))
+														.addComponent(label))
+										.addGap(1, 1, 1)));
 		getContentPane().setLayout(groupLayout);
 		pack();
 		//
