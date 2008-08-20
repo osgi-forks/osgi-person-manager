@@ -23,6 +23,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 
+import org.jdesktop.application.Application;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
@@ -33,6 +34,7 @@ public class ActionServiceManager extends ServiceTracker {
 
 	private JToolBar toolBar;
 	private JMenuBar menuBar;
+	private Application application;
 
 	public ActionServiceManager(BundleContext context) {
 		super(context, IActionContribution.class.getName(), null);
@@ -50,7 +52,7 @@ public class ActionServiceManager extends ServiceTracker {
 
 		IActionContribution actionContribution = (IActionContribution) context
 				.getService(reference);
-		List<Action> actions = actionContribution.getActions();
+		List<Action> actions = actionContribution.getActions(application);
 		List<JButton> buttons = new ArrayList<JButton>();
 		for (Action action : actions) {
 			JButton button = new JButton(action);
@@ -102,7 +104,9 @@ public class ActionServiceManager extends ServiceTracker {
 		context.ungetService(reference);
 	}
 
-	public void initialize(JToolBar toolBar, JMenuBar menuBar) {
+	public void initialize(Application application, JToolBar toolBar,
+			JMenuBar menuBar) {
+		this.application = application;
 		this.toolBar = toolBar;
 		this.menuBar = menuBar;
 		open();

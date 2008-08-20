@@ -7,6 +7,7 @@ Bundle-Vendor: SIEMENS
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: 
  com.siemens.ct.pm.application.service,
- com.siemens.ct.pm.model
+ com.siemens.ct.pm.model,
+ org.jdesktop.application
 Service-Component: OSGI-INF/personActions.xml,OSGI-INF/deletePersonAction.xml
 Export-Package: com.siemens.ct.pm.ui.actions.person

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.4"?>
+
+<product name="PM" useFeatures="false">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <plugins>
+      <plugin id="com.siemens.ct.pm.application"/>
+      <plugin id="com.siemens.ct.pm.model"/>
+      <plugin id="com.siemens.ct.pm.model.basic"/>
+      <plugin id="com.siemens.ct.pm.model.minimal"/>
+      <plugin id="com.siemens.ct.pm.product"/>
+      <plugin id="com.siemens.ct.pm.ui.actions.person"/>
+      <plugin id="com.siemens.ct.pm.ui.actions.vcard"/>
+      <plugin id="com.siemens.ct.pm.ui.views.bundleview"/>
+      <plugin id="com.siemens.ct.pm.ui.views.tableview"/>
+      <plugin id="com.siemens.ct.pm.ui.views.treeview"/>
+      <plugin id="org.eclipse.equinox.ds"/>
+      <plugin id="org.eclipse.equinox.ds.source"/>
+      <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.equinox.util.source"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.eclipse.osgi.services.source"/>
+      <plugin id="org.eclipse.osgi.source"/>
+      <plugin id="org.jdesktop.application"/>
+   </plugins>
+
+</product>

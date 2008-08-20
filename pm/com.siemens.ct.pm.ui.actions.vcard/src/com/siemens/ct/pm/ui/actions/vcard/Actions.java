@@ -31,11 +31,11 @@ public class Actions implements IActionContribution {
 	}
 
 	@Override
-	public List<javax.swing.Action> getActions() {
+	public List<javax.swing.Action> getActions(Application application) {
 		if (actions == null) {
 			actions = new ArrayList<javax.swing.Action>();
 
-			ApplicationContext context = Application.getInstance().getContext();
+			ApplicationContext context = application.getContext();
 			ResourceMap resourceMap = context.getResourceMap(this.getClass());
 			ApplicationActionMap applicationActionMap = new ApplicationActionMap(
 					context, this.getClass(), this, resourceMap);

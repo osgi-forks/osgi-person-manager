@@ -122,7 +122,8 @@ public class PersonManagerApplication extends SingleFrameApplication {
 				}
 			}
 			if (laf == null) {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				UIManager.setLookAndFeel(UIManager
+						.getSystemLookAndFeelClassName());
 			} else {
 				UIManager.setLookAndFeel(laf);
 			}
@@ -133,7 +134,7 @@ public class PersonManagerApplication extends SingleFrameApplication {
 		menuBar = createMenuBar();
 		getMainFrame().setJMenuBar(menuBar);
 		JComponent mainPanel = createMainPanel();
-		Activator.getActionServiceManager().initialize(toolBar, menuBar);
+		Activator.getActionServiceManager().initialize(this, toolBar, menuBar);
 		Activator.getViewServiceManager().initialize(viewContainer);
 
 		show(mainPanel);

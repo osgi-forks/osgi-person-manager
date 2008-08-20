@@ -16,12 +16,14 @@ import java.util.List;
 
 import javax.swing.Action;
 
+import org.jdesktop.application.Application;
+
 /**
  * A simple Action UI contribution, providing the action and the locations in
  * the tool bar and the menu.
  */
 public interface IActionContribution {
-	public List<Action> getActions();
+	public List<Action> getActions(Application application);
 
 	public String getMenuLocation();
 
