@@ -9,4 +9,5 @@ Import-Package: com.siemens.ct.pm.application.service,
  org.jdesktop.application,
  org.osgi.framework;version="1.3.0"
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/testActions.xml
+Service-Component-xxx: OSGI-INF/testActions.xml
+Action-Contribution: com.siemens.ct.pm.ui.actions.vcard.Actions
