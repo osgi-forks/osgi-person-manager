@@ -13,7 +13,6 @@
 package com.siemens.ct.pm.application;
 
 import java.awt.Component;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Action;
@@ -21,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 
 import org.jdesktop.application.Application;
@@ -53,54 +53,94 @@ public class ActionServiceManager extends ServiceTracker {
 		IActionContribution actionContribution = (IActionContribution) context
 				.getService(reference);
 		List<Action> actions = actionContribution.getActions(application);
-		List<JButton> buttons = new ArrayList<JButton>();
+
+		if (toolBar.getComponentCount() > 0) {
+			toolBar.addSeparator();
+		}
+
+		// Find actions menu
+		JMenu actionsMenu = getActionsMenu();
+		if (actionsMenu != null && actionsMenu.getItemCount() > 0) {
+			actionsMenu.addSeparator();
+		}
+
 		for (Action action : actions) {
 			JButton button = new JButton(action);
 			button.setToolTipText((String) action.getValue(Action.NAME));
-			buttons.add(button);
 			toolBar.add(button);
-			toolBar.revalidate();
 
-			Component[] menus = menuBar.getComponents();
-			for (Component component : menus) {
-				if (component instanceof JMenu) {
-					JMenu menu = (JMenu) component;
-					if (menu.getName().equals("actionsMenu")) {
-						menu.add(action);
-					}
-				}
+			if (actionsMenu != null) {
+				actionsMenu.add(action);
 			}
-			menuBar.revalidate();
 		}
-		return buttons;
+		toolBar.revalidate();
+		menuBar.revalidate();
+		return actionContribution;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public void removedService(ServiceReference reference, Object service) {
-		List<JButton> buttons = (List<JButton>) service;
-
-		for (JButton button : buttons) {
-			toolBar.remove(button);
-			toolBar.revalidate();
-			toolBar.repaint();
-
-			Component[] menus = menuBar.getComponents();
-			for (Component component : menus) {
-				if (component instanceof JMenu) {
-					JMenu menu = (JMenu) component;
-					if (menu.getName().equals("actionsMenu")) {
-						for (int i = 0; i < menu.getItemCount(); i++) {
-							JMenuItem item = menu.getItem(i);
-							if (item.getAction() == button.getAction()) {
-								menu.remove(item);
-								break;
-							}
-						}
-					}
+	private JMenu getActionsMenu() {
+		Component[] menus = menuBar.getComponents();
+		for (Component component : menus) {
+			if (component instanceof JMenu) {
+				JMenu menu = (JMenu) component;
+				if (menu.getName().equals("actionsMenu")) {
+					return menu;
 				}
 			}
 		}
+		return null;
+	}
+
+	@Override
+	public void removedService(ServiceReference reference, Object service) {
+		IActionContribution actionContribution = (IActionContribution) service;
+		List<Action> actions = actionContribution.getActions(application);
+
+		JMenu actionsMenu = getActionsMenu();
+		for (Action action : actions) {
+			Component[] components = toolBar.getComponents();
+			for (Component component : components) {
+				if (component instanceof JButton
+						&& action == ((JButton) component).getAction()) {
+					toolBar.remove(component);
+					break;
+				}
+			}
+
+			components = actionsMenu.getMenuComponents();
+			for (Component component : components) {
+				if (component instanceof JMenuItem
+						&& action == ((JMenuItem) component).getAction()) {
+					actionsMenu.remove(component);
+					break;
+				}
+			}
+		}
+
+		// Cleanup toolbar separators
+		Component[] components = toolBar.getComponents();
+		for (int i = 0; i < components.length; i++) {
+			if (components[i] instanceof JToolBar.Separator
+					&& (i == 0 || i == components.length - 1 || (i < components.length - 1 && components[i + 1] instanceof JToolBar.Separator))) {
+				toolBar.remove(components[i]);
+			}
+		}
+
+		toolBar.revalidate();
+		toolBar.repaint();
+
+		// Cleanup menu separators
+		components = actionsMenu.getMenuComponents();
+		for (int i = 0; i < components.length; i++) {
+			if (components[i] instanceof JPopupMenu.Separator
+					&& (i == 0 || i == components.length - 1 || (i < components.length - 1 && components[i + 1] instanceof JPopupMenu.Separator))) {
+				actionsMenu.remove(components[i]);
+			}
+		}
+
+		toolBar.revalidate();
+		toolBar.repaint();
+
 		context.ungetService(reference);
 	}
 
