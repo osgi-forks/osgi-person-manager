@@ -1,0 +1,18 @@
+<component name="uiServiceManager">
+<implementation
+  class="com.siemens.ct.pm.application.UIServiceManagerComponent"/>
+  <reference name="ActionContribution"
+    interface="com.siemens.ct.pm.application.service.IActionContribution"
+    bind="setActionContribution"
+    unbind="unsetActionContribution"
+    cardinality="0..n"
+    policy="dynamic"
+  />
+  <reference name="ViewContribution"
+    interface="com.siemens.ct.pm.application.service.IViewContribution"
+    bind="setViewContribution"
+    unbind="unsetViewContribution"
+    cardinality="0..n"
+    policy="dynamic"
+  />
+</component>

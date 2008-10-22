@@ -24,20 +24,18 @@ import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 
 import org.jdesktop.application.Application;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
-import org.osgi.util.tracker.ServiceTracker;
 
 import com.siemens.ct.pm.application.service.IActionContribution;
 
-public class ActionServiceManager extends ServiceTracker {
+public class ActionServiceManager {
 
 	private JToolBar toolBar;
 	private JMenuBar menuBar;
 	private Application application;
 
-	public ActionServiceManager(BundleContext context) {
-		super(context, IActionContribution.class.getName(), null);
+	private boolean isInitialized = false;
+
+	public ActionServiceManager() {
 		System.out.println("ActionServiceManager started");
 	}
 
@@ -45,13 +43,12 @@ public class ActionServiceManager extends ServiceTracker {
 		return toolBar;
 	}
 
-	@Override
-	public Object addingService(ServiceReference reference) {
-		System.out
-				.println("ActionServiceManager.addingService(): " + reference);
+	public synchronized void setActionContribution(
+			IActionContribution actionContribution) {
+		waitUntilInitialized();
+		System.out.println("ActionServiceManager.addingService(): "
+				+ actionContribution);
 
-		IActionContribution actionContribution = (IActionContribution) context
-				.getService(reference);
 		List<Action> actions = actionContribution.getActions(application);
 
 		if (toolBar.getComponentCount() > 0) {
@@ -75,7 +72,6 @@ public class ActionServiceManager extends ServiceTracker {
 		}
 		toolBar.revalidate();
 		menuBar.revalidate();
-		return actionContribution;
 	}
 
 	private JMenu getActionsMenu() {
@@ -91,9 +87,8 @@ public class ActionServiceManager extends ServiceTracker {
 		return null;
 	}
 
-	@Override
-	public void removedService(ServiceReference reference, Object service) {
-		IActionContribution actionContribution = (IActionContribution) service;
+	public synchronized void unsetActionContribution(
+			IActionContribution actionContribution) {
 		List<Action> actions = actionContribution.getActions(application);
 
 		JMenu actionsMenu = getActionsMenu();
@@ -140,15 +135,25 @@ public class ActionServiceManager extends ServiceTracker {
 
 		toolBar.revalidate();
 		toolBar.repaint();
-
-		context.ungetService(reference);
 	}
 
-	public void initialize(Application application, JToolBar toolBar,
-			JMenuBar menuBar) {
+	public synchronized void initialize(Application application,
+			JToolBar toolBar, JMenuBar menuBar) {
 		this.application = application;
 		this.toolBar = toolBar;
 		this.menuBar = menuBar;
-		open();
+		this.isInitialized = true;
+		this.notifyAll();
+	}
+
+	public synchronized void waitUntilInitialized() {
+		while (!this.isInitialized) {
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

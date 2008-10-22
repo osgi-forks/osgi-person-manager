@@ -134,8 +134,12 @@ public class PersonManagerApplication extends SingleFrameApplication {
 		menuBar = createMenuBar();
 		getMainFrame().setJMenuBar(menuBar);
 		JComponent mainPanel = createMainPanel();
-		Activator.getActionServiceManager().initialize(this, toolBar, menuBar);
-		Activator.getViewServiceManager().initialize(viewContainer);
+		System.out.println("Application UI skeleton initialized");
+
+		UIServiceManagerComponent.getActionServiceManager().initialize(this,
+				toolBar, menuBar);
+		UIServiceManagerComponent.getViewServiceManager().initialize(
+				viewContainer);
 
 		show(mainPanel);
 	}
@@ -146,9 +150,4 @@ public class PersonManagerApplication extends SingleFrameApplication {
 	@Override
 	protected void ready() {
 	}
-
-	public static void main(String[] args) {
-		launch(PersonManagerApplication.class, args);
-	}
-
 }

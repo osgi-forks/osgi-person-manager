@@ -17,26 +17,14 @@ import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
 
-	private static volatile ActionServiceManager actionServiceManager;
-	private static volatile ViewServiceManager viewServiceManager;
-
 	public void start(BundleContext context) throws Exception {
-		actionServiceManager = new ActionServiceManager(context);
-		viewServiceManager = new ViewServiceManager(context);
-		PersonManagerApplication.main(null);
+		System.out.println("Application launched asynchronously");
+		PersonManagerApplication.launch(PersonManagerApplication.class, null);
 	}
 
-	public void stop(BundleContext context) throws Exception {
-		actionServiceManager.close();
-		viewServiceManager.close();
-	}
+	@Override
+	public void stop(BundleContext arg0) throws Exception {
+		// TODO Auto-generated method stub
 
-	public static ActionServiceManager getActionServiceManager() {
-		return actionServiceManager;
 	}
-
-	public static synchronized ViewServiceManager getViewServiceManager() {
-		return viewServiceManager;
-	}
-
 }

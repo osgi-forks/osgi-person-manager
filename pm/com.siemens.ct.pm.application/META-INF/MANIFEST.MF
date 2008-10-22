@@ -3,12 +3,12 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Person Manager Application Plug-in
 Bundle-SymbolicName: com.siemens.ct.pm.application
 Bundle-Version: 1.0.0
-Bundle-Activator: com.siemens.ct.pm.application.Activator
 Bundle-Vendor: SIEMENS AG
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.jdesktop.application,
  org.osgi.framework;version="1.3.0",
- org.osgi.util.tracker;version="1.3.3"
+ org.osgi.service.component;version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: com.siemens.ct.pm.application.service
-Service-Component: OSGI-INF/selectionService.xml
+Service-Component: OSGI-INF/selectionService.xml,OSGI-INF/uiServiceManagerComponent.xml
+Bundle-Activator: com.siemens.ct.pm.application.Activator
