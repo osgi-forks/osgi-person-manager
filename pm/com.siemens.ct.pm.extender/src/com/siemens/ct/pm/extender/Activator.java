@@ -30,7 +30,6 @@ public class Activator implements BundleActivator, SynchronousBundleListener {
 
 		this.context = context;
 		serviceMap = new HashMap<String, ServiceRegistration>();
-		context.addBundleListener(this);
 
 		// search for existing bundles
 		Bundle[] bundles = context.getBundles();
@@ -39,6 +38,7 @@ public class Activator implements BundleActivator, SynchronousBundleListener {
 				addService(bundle);
 			}
 		}
+		context.addBundleListener(this);
 	}
 
 	public void stop(BundleContext context) throws Exception {
