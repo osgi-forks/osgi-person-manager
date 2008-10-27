@@ -1,6 +1,6 @@
 <component name="uiServiceManager">
 <implementation
-  class="com.siemens.ct.pm.application.UIServiceManagerComponent"/>
+  class="com.siemens.ct.pm.application.PersonManagerApplicationComponent"/>
   <reference name="ActionContribution"
     interface="com.siemens.ct.pm.application.service.IActionContribution"
     bind="setActionContribution"

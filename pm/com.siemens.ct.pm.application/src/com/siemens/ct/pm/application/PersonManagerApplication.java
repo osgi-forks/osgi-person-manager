@@ -136,9 +136,9 @@ public class PersonManagerApplication extends SingleFrameApplication {
 		JComponent mainPanel = createMainPanel();
 		System.out.println("Application UI skeleton initialized");
 
-		UIServiceManagerComponent.getActionServiceManager().initialize(this,
+		PersonManagerApplicationComponent.getActionServiceManager().initialize(this,
 				toolBar, menuBar);
-		UIServiceManagerComponent.getViewServiceManager().initialize(
+		PersonManagerApplicationComponent.getViewServiceManager().initialize(
 				viewContainer);
 
 		show(mainPanel);

@@ -10,5 +10,5 @@ Import-Package: org.jdesktop.application,
  org.osgi.service.component;version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: com.siemens.ct.pm.application.service
-Service-Component: OSGI-INF/selectionService.xml,OSGI-INF/uiServiceManagerComponent.xml
-Bundle-Activator: com.siemens.ct.pm.application.Activator
+Service-Component: OSGI-INF/selectionService.xml,OSGI-INF/PersonManagerApplicationComponent.xml
+

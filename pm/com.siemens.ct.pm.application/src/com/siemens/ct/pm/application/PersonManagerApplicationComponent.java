@@ -15,18 +15,19 @@ package com.siemens.ct.pm.application;
 import com.siemens.ct.pm.application.service.IActionContribution;
 import com.siemens.ct.pm.application.service.IViewContribution;
 
-public class UIServiceManagerComponent {
+public class PersonManagerApplicationComponent {
 
 	private static ActionServiceManager actionServiceManager;
 	private static ViewServiceManager viewServiceManager;
 
-	public UIServiceManagerComponent() {
+	public PersonManagerApplicationComponent() {
 		// this must happen before the 'setActionContribution' or
 		// 'setViewContribution'
 		// methods are called...
 		actionServiceManager = new ActionServiceManager();
 		viewServiceManager = new ViewServiceManager();
-		System.out.println("UIServiceManagerComponent created");
+		PersonManagerApplication.launch(PersonManagerApplication.class, null);
+		System.out.println("Application launched asynchronously");
 	}
 
 	public static ActionServiceManager getActionServiceManager() {
