@@ -5,8 +5,6 @@
     <service>
         <provide
             interface="com.siemens.ct.pm.application.service.IViewContribution"/>
-    </service>
-    <service>
         <provide
             interface="com.siemens.ct.pm.model.IPersonListener"/>
     </service>
