@@ -5,5 +5,5 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean name="savePerson"
-class="com.siemens.ct.pm.ui.actions.save.ActionContribution"/>
+         class="com.siemens.ct.pm.ui.actions.save.ActionContribution"/>
 </beans>
