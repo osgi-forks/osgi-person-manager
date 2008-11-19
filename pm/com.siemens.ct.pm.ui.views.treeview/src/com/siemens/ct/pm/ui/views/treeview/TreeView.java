@@ -54,11 +54,14 @@ public class TreeView implements IViewContribution, IPersonListener {
 
 		tree = new JTree(top);
 		view = new JScrollPane(tree);
-		view.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2, 2, 2,
-				2), BorderFactory.createLineBorder(Color.lightGray)));
+		view.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+				.createEmptyBorder(2, 2, 2, 2), BorderFactory
+				.createLineBorder(Color.lightGray)));
 
-		ImageIcon folderIcon = new ImageIcon(this.getClass().getResource("/icons/folder.png"));
-		ImageIcon leafIcon = new ImageIcon(this.getClass().getResource("/icons/user.png"));
+		ImageIcon folderIcon = new ImageIcon(this.getClass().getResource(
+				"/icons/folder.png"));
+		ImageIcon leafIcon = new ImageIcon(this.getClass().getResource(
+				"/icons/user.png"));
 		if (leafIcon != null) {
 			DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
 			renderer.setLeafIcon(leafIcon);
@@ -89,7 +92,8 @@ public class TreeView implements IViewContribution, IPersonListener {
 			DefaultMutableTreeNode companyNode = null;
 			for (int i = 0; i < top.getChildCount(); i++) {
 				companyNode = (DefaultMutableTreeNode) top.getChildAt(i);
-				if (companyNode.getUserObject().toString().equals(person.getCompany())) {
+				if (companyNode.getUserObject().toString().equals(
+						person.getCompany())) {
 					companyFound = true;
 					break;
 				}
@@ -122,25 +126,31 @@ public class TreeView implements IViewContribution, IPersonListener {
 		return 1;
 	}
 
-	public synchronized void removeSelectionService(ISelectionService selectionService) {
+	public synchronized void removeSelectionService(
+			ISelectionService selectionService) {
 		this.selectionService = null;
 	}
 
-	public synchronized void setSelectionService(ISelectionService selectionService) {
+	public synchronized void setSelectionService(
+			ISelectionService selectionService) {
 		this.selectionService = selectionService;
 	}
 
 	public synchronized void removePersonManager(IPersonManager personManager) {
 		System.out.println("TreeView.removePersonManager()");
-		this.personManager = null;
-		top.removeAllChildren();
-		((DefaultTreeModel) tree.getModel()).reload(top);
+		if (this.personManager == personManager) {
+			this.personManager = null;
+			top.removeAllChildren();
+			((DefaultTreeModel) tree.getModel()).reload(top);
+		}
 	}
 
 	public synchronized void setPersonManager(IPersonManager personManager) {
 		System.out.println("TreeView.setPersonManager()");
 		this.personManager = personManager;
+		top.removeAllChildren();
 		createNodes(top);
+		((DefaultTreeModel) tree.getModel()).reload(top);
 		expand(new TreePath(top));
 	}
 
@@ -152,7 +162,8 @@ public class TreeView implements IViewContribution, IPersonListener {
 				return;
 			}
 
-			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (node.getParent());
+			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (node
+					.getParent());
 			if (parentNode == null) {
 				return;
 			}

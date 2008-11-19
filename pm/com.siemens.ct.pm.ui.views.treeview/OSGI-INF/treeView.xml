@@ -12,7 +12,7 @@
         interface="com.siemens.ct.pm.model.IPersonManager"
         bind="setPersonManager"
         unbind="removePersonManager"
-        cardinality="0..1"
+        cardinality="1..1"
         policy="dynamic"/>
      <reference name="SelectionService"
         interface="com.siemens.ct.pm.application.service.ISelectionService"
