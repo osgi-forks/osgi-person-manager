@@ -12,12 +12,17 @@
 
 package com.siemens.ct.pm.ui.views.bundleview;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -153,9 +158,46 @@ public class BundleView implements IViewContribution {
 
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		view = new JScrollPane(table);
-		view.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2, 2, 2,
+		view = new JPanel();
+		view.setLayout(new BorderLayout());
+		
+		JPanel selectionPanel = new JPanel();
+		JButton selectAll = new JButton("Select All");
+		selectAll.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(Bundle bundle: bundles) {
+					try {
+						bundle.start();
+					} catch (BundleException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				table.revalidate();
+			}});
+		JButton deselectAll = new JButton("Deselect All");
+		deselectAll.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(Bundle bundle: bundles) {
+					try {
+						bundle.stop();
+					} catch (BundleException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				table.revalidate();
+			}});
+		selectionPanel.add(selectAll);
+		selectionPanel.add(deselectAll);
+		view.add(selectionPanel, BorderLayout.SOUTH);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2, 2, 2,
 				2), BorderFactory.createLineBorder(Color.lightGray)));
+		view.add(scrollPane, BorderLayout.CENTER);
 	}
 
 	@Override
