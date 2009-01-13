@@ -4,8 +4,7 @@
 <booleanAttribute key="automaticAdd" value="false"/>
 <booleanAttribute key="automaticValidate" value="true"/>
 <stringAttribute key="bootstrap" value=""/>
-<stringAttribute key="checked" value="[NONE]"/>
-<booleanAttribute key="clearConfig" value="true"/>
+<booleanAttribute key="clearConfig" value="false"/>
 <stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/PM Swing OSGi Demo"/>
 <booleanAttribute key="default_auto_start" value="true"/>
 <intAttribute key="default_start_level" value="4"/>
@@ -17,8 +16,8 @@
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Declipse.ignoreApp=true -Dosgi.noShutdown=true"/>
 <stringAttribute key="pde.version" value="3.3"/>
 <booleanAttribute key="show_selected_only" value="false"/>
-<stringAttribute key="target_bundles" value="com.springsource.slf4j.api@default:default,org.springframework.bundle.spring.core@default:default,com.springsource.slf4j.org.apache.commons.logging@default:default,org.springframework.bundle.spring.context@default:default,com.springsource.org.aopalliance@default:default,org.springframework.bundle.spring.aop@default:default,org.eclipse.equinox.ds@default:default,org.springframework.bundle.spring.beans@default:default,org.eclipse.equinox.util@default:default,org.springframework.bundle.osgi.extender@default:default,org.eclipse.osgi.services@default:default,org.springframework.bundle.osgi.core@default:default,org.springframework.bundle.osgi.io@default:default,com.springsource.slf4j.log4j@default:default,org.springframework.osgi.log4j.osgi@default:default,org.eclipse.osgi@:"/>
+<stringAttribute key="target_bundles" value="org.springframework.bundle.osgi.extender@default:default,org.springframework.bundle.spring.context@default:default,org.springframework.bundle.spring.beans@default:default,org.springframework.bundle.spring.core@default:default,org.eclipse.equinox.ds@default:default,com.springsource.slf4j.org.apache.commons.logging@default:default,com.springsource.org.aopalliance@default:default,org.springframework.osgi.log4j.osgi@default:default,com.springsource.slf4j.api@default:default,org.eclipse.equinox.util@default:default,org.springframework.bundle.osgi.io@default:default,org.springframework.bundle.osgi.core@default:default,org.eclipse.osgi@:,org.springframework.bundle.spring.aop@default:default,org.eclipse.osgi.services@default:default,com.springsource.slf4j.log4j@default:default"/>
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="org.jdesktop.application@default:default,com.siemens.ct.pm.ui.actions.vcard@default:default,com.siemens.ct.pm.extender@default:default,com.siemens.ct.pm.model.basic@default:default,com.siemens.ct.pm.ui.actions.person@default:default,com.siemens.ct.pm.ui.actions.save@default:default,com.siemens.ct.pm.model.minimal@default:false,com.siemens.ct.pm.ui.views.treeview@default:default,com.siemens.ct.pm.ui.views.tableview@default:default,com.siemens.ct.pm.model@default:default,com.siemens.ct.pm.ui.views.bundleview@default:default,com.siemens.ct.pm.application@default:default"/>
+<stringAttribute key="workspace_bundles" value="com.siemens.ct.pm.ui.views.treeview@default:default,com.siemens.ct.pm.ui.views.tableview@default:default,com.siemens.ct.pm.ui.actions.save@default:default,com.siemens.ct.pm.application@default:default,com.siemens.ct.pm.model@default:default,com.siemens.ct.pm.log4j@default:false,com.siemens.ct.pm.model.basic@default:default,com.siemens.ct.pm.ui.actions.person@default:default,com.siemens.ct.pm.ui.views.treeview.dm@default:default,org.jdesktop.application@default:default,com.siemens.ct.pm.model.minimal@default:false,com.siemens.ct.pm.ui.views.bundleview@default:default,com.siemens.ct.pm.ui.actions.vcard@default:default,com.siemens.ct.pm.extender@default:default"/>
 </launchConfiguration>

@@ -22,38 +22,38 @@ import com.siemens.ct.pm.model.event.PersonEvent;
 
 public class PersonManager implements IPersonManager {
 
-	private final List<IPerson> persons;
+    private final List<IPerson> persons;
 
-	private final List<IPersonListener> personListeners;
+    private final List<IPersonListener> personListeners;
 
-	public PersonManager() {
-		personListeners = new ArrayList<IPersonListener>();
+    public PersonManager() {
+        personListeners = new ArrayList<IPersonListener>();
 
-		persons = new ArrayList<IPerson>();
-		persons.add(new Person("Kai", "Tödter", "Siemens AG"));
-	}
+        persons = new ArrayList<IPerson>();
+        persons.add(new Person("Kai", "Tödter", "Siemens AG"));
+    }
 
-	@Override
-	public List<IPerson> getPersons() {
-		return persons;
-	}
+    @Override
+    public List<IPerson> getPersons() {
+        return persons;
+    }
 
-	@Override
-	public void deletePerson(IPerson selectedPerson) {
-		persons.remove(selectedPerson);
-		PersonEvent personEvent = new PersonEvent(this, PersonEvent.Type.DELETE, selectedPerson);
-		for (IPersonListener personlistener : personListeners) {
-			personlistener.handleEvent(personEvent);
-		}
-	}
+    @Override
+    public void deletePerson(IPerson selectedPerson) {
+        persons.remove(selectedPerson);
+        PersonEvent personEvent = new PersonEvent(this, PersonEvent.Type.DELETE, selectedPerson);
+        for (IPersonListener personlistener : personListeners) {
+            personlistener.handleEvent(personEvent);
+        }
+    }
 
-	public synchronized void addPersonListener(IPersonListener personListener) {
-		System.out.println("Minimal PersonManager.addPersonListener(): " + personListener);
-		personListeners.add(personListener);
-	}
+    public synchronized void addPersonListener(IPersonListener personListener) {
+        System.out.println("Minimal PersonManager.addPersonListener(): " + personListener);
+        personListeners.add(personListener);
+    }
 
-	public synchronized void removePersonListener(IPersonListener personListener) {
-		System.out.println("Minimal PersonManager.removePersonListener(): " + personListener);
-		personListeners.remove(personListener);
-	}
+    public synchronized void removePersonListener(IPersonListener personListener) {
+        System.out.println("Minimal PersonManager.removePersonListener(): " + personListener);
+        personListeners.remove(personListener);
+    }
 }

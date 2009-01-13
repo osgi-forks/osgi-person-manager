@@ -22,35 +22,34 @@ import org.jdesktop.application.Application;
 import com.siemens.ct.pm.application.service.IActionContribution;
 import com.siemens.ct.pm.application.service.ISelectionListener;
 
-public class ActionContribution implements IActionContribution,
-		ISelectionListener {
+public class ActionContribution implements IActionContribution, ISelectionListener {
 
-	private final List<Action> actions;
+    private final List<Action> actions;
 
-	public ActionContribution() {
-		super();
-		actions = new ArrayList<Action>();
-		actions.add(new SavePersonAction());
-	}
+    public ActionContribution() {
+        super();
+        actions = new ArrayList<Action>();
+        actions.add(new SavePersonAction());
+    }
 
-	@Override
-	public List<Action> getActions(Application application) {
-		return actions;
-	}
+    @Override
+    public List<Action> getActions(Application application) {
+        return actions;
+    }
 
-	@Override
-	public String getMenuLocation() {
-		return "actions";
-	}
+    @Override
+    public String getMenuLocation() {
+        return "actions";
+    }
 
-	@Override
-	public String getToolBarLocation() {
-		return "actions";
-	}
+    @Override
+    public String getToolBarLocation() {
+        return "actions";
+    }
 
-	@Override
-	public void selectionChanged(Object selectedObject) {
-		// TODO Auto-generated method stub
+    @Override
+    public void selectionChanged(Object selectedObject) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 }

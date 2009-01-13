@@ -22,19 +22,17 @@ import javax.swing.JOptionPane;
 
 public class SavePersonAction extends AbstractAction {
 
-	private static final long serialVersionUID = 4872237049739003596L;
+    private static final long serialVersionUID = 4872237049739003596L;
 
-	public SavePersonAction() {
-		super("Save Person");
-		ImageIcon icon = new ImageIcon(this.getClass().getResource(
-				"/icons/drive_user.png"));
-		putValue(Action.SMALL_ICON, icon);
-	}
+    public SavePersonAction() {
+        super("Save Person");
+        ImageIcon icon = new ImageIcon(this.getClass().getResource("/icons/drive_user.png"));
+        putValue(Action.SMALL_ICON, icon);
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog((Component) e.getSource(),
-				"Not implemented yet", "Add Person Action Action",
-				JOptionPane.INFORMATION_MESSAGE);
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog((Component) e.getSource(), "Not implemented yet",
+                "Add Person Action Action", JOptionPane.INFORMATION_MESSAGE);
+    }
 }

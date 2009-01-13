@@ -17,14 +17,14 @@ import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
 
-	private ExtenderBundleTracker extenderBundleTracker;
+    private ExtenderBundleTracker extenderBundleTracker;
 
-	public void start(BundleContext context) throws Exception {
-		extenderBundleTracker = new ExtenderBundleTracker(context);
-		extenderBundleTracker.open();
-	}
+    public void start(BundleContext context) throws Exception {
+        extenderBundleTracker = new ExtenderBundleTracker(context);
+        extenderBundleTracker.open();
+    }
 
-	public void stop(BundleContext context) throws Exception {
-		extenderBundleTracker.close();
-	}
+    public void stop(BundleContext context) throws Exception {
+        extenderBundleTracker.close();
+    }
 }

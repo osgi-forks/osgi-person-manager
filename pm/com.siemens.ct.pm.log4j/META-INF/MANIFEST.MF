@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Log4j fragment for PM
+Bundle-SymbolicName: com.siemens.ct.pm.log4j
+Bundle-Version: 1.0.0
+Bundle-Vendor: Siemens AG
+Fragment-Host: org.springframework.osgi.log4j.osgi;bundle-version="1.2.15"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

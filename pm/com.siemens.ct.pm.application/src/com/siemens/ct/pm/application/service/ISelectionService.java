@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Siemens AG
+ * Copyright (c) 2009 Siemens AG
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,5 +13,5 @@
 package com.siemens.ct.pm.application.service;
 
 public interface ISelectionService {
-	public void objectSelected(Object selectedObject);
+    public void objectSelected(Object selectedObject);
 }

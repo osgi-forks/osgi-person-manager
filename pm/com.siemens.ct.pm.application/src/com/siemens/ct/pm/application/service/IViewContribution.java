@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Siemens AG
+ * Copyright (c) 2009 Siemens AG
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,11 +19,11 @@ import javax.swing.JComponent;
  * A simple view UI contribution
  */
 public interface IViewContribution {
-	public JComponent getView();
+    public JComponent getView();
 
-	public Icon getIcon();
+    public Icon getIcon();
 
-	public String getName();
+    public String getName();
 
-	public int getPosition();
+    public int getPosition();
 }

@@ -7,9 +7,9 @@
  http://www.springframework.org/schema/osgi 
  http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
-	<osgi:service id="treeViewOSGi" ref="treeView" interface="com.siemens.ct.pm.application.service.IViewContribution" />
+	<osgi:service id="treeViewOSGi" ref="treeView" interface="com.siemens.ct.pm.application.service.IViewContribution" depends-on="personManagerOSGi"/>
 
-	<osgi:reference id="personManagerOSGi" interface="com.siemens.ct.pm.model.IPersonManager">
+	<osgi:reference id="personManagerOSGi" interface="com.siemens.ct.pm.model.IPersonManager" cardinality="1..1">
 	  <osgi:listener ref="treeView" bind-method="setPersonManager" unbind-method="removePersonManager">
 	  </osgi:listener>
 	</osgi:reference>

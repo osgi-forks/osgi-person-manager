@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Siemens AG
+ * Copyright (c) 2009 Siemens AG
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,9 +23,9 @@ import org.jdesktop.application.Application;
  * the tool bar and the menu.
  */
 public interface IActionContribution {
-	public List<Action> getActions(Application application);
+    public List<Action> getActions(Application application);
 
-	public String getMenuLocation();
+    public String getMenuLocation();
 
-	public String getToolBarLocation();
+    public String getToolBarLocation();
 }

@@ -24,29 +24,28 @@ import com.siemens.ct.pm.model.IPersonManager;
 @SuppressWarnings("serial")
 public class DeletePersonAction extends AbstractAction {
 
-	private IPersonManager personManager;
-	private IPerson selectedPerson;
+    private IPersonManager personManager;
+    private IPerson selectedPerson;
 
-	public DeletePersonAction() {
-		super("Delete Person");
-		ImageIcon icon = new ImageIcon(this.getClass().getResource(
-				"/icons/user_delete.png"));
-		putValue(Action.SMALL_ICON, icon);
-		setEnabled(false);
-	}
+    public DeletePersonAction() {
+        super("Delete Person");
+        ImageIcon icon = new ImageIcon(this.getClass().getResource("/icons/user_delete.png"));
+        putValue(Action.SMALL_ICON, icon);
+        setEnabled(false);
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (personManager != null && selectedPerson != null) {
-			personManager.deletePerson(selectedPerson);
-		}
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (personManager != null && selectedPerson != null) {
+            personManager.deletePerson(selectedPerson);
+        }
+    }
 
-	public synchronized void setPersonManager(IPersonManager personManager) {
-		this.personManager = personManager;
-	}
+    public synchronized void setPersonManager(IPersonManager personManager) {
+        this.personManager = personManager;
+    }
 
-	public void setSelectedPerson(IPerson selectedPerson) {
-		this.selectedPerson = selectedPerson;
-	}
+    public void setSelectedPerson(IPerson selectedPerson) {
+        this.selectedPerson = selectedPerson;
+    }
 }
