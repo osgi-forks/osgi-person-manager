@@ -9,5 +9,5 @@ Import-Package:
  com.siemens.ct.pm.application.service,
  com.siemens.ct.pm.model,
  org.jdesktop.application
-Service-Component: OSGI-INF/personActions.xml,OSGI-INF/deletePersonAction.xml
+Service-Component: OSGI-INF/personActions.xml
 Export-Package: com.siemens.ct.pm.ui.actions.person

@@ -21,6 +21,7 @@ public class PersonManagerApplicationComponent {
     private static ViewServiceManager viewServiceManager;
 
     public PersonManagerApplicationComponent() {
+        System.out.println("PersonManagerApplicationComponent created");
         // this must happen before the 'setActionContribution' or
         // 'setViewContribution'
         // methods are called...
