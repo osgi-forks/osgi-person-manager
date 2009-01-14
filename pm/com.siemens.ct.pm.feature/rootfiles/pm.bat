@@ -1,1 +1,1 @@
-java -Dequinox.ds.print=true -jar plugins/org.eclipse.osgi_3.4.0.v20080605-1900.jar -console
+java -jar plugins/org.eclipse.osgi_3.4.0.v20080605-1900.jar -console
