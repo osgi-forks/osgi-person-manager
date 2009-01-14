@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Person Actions Plug-in
 Bundle-SymbolicName: com.siemens.ct.pm.ui.actions.person
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: SIEMENS
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: 
