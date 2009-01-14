@@ -9,7 +9,7 @@
         <!-- vendor homepage -->
         <homepage href="http://max-server.myftp.org/trac/pm" />
         <!-- product description -->
-        <description>MP3 Manager is a demo application to demonstrate best practices when it comes to dynamic OSGi based applications</description>
+        <description>Person Manager is a demo application to demonstrate best practices when it comes to dynamic OSGi based applications</description>
         <icon kind="splash" href="splash.gif" />
     </information>
 
