@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jnlp spec="1.0+" codebase="http://max-server.myftp.org/pm/webstart" href="pm.jnlp">
+<jnlp spec="1.0+" codebase="http://max-server.myftp.org/pm/webstart/pm" href="pm.jnlp">
     <!-- URL to the site containing the jnlp application. It should match the value used on  export. Href, the name of this file -->
     <information>
         <!-- user readable name of the application -->
