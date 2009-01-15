@@ -92,11 +92,12 @@
 
 		<zip destfile="${webServerResultDir}/download/PM-${pmVersion}.zip" basedir="${buildDirectory}/tmp/pm" />
 		<replace file="${buildDirectory}/tmp/pm/pm.jnlp" token="1.0.0.qualifier" value="${pmVersion}" />
+		
+		<delete dir="${webServerResultDir}/webstart" />
 		<copy todir="${webServerResultDir}/webstart">
 			<fileset dir="${buildDirectory}/tmp/pm" />
 		</copy>
 
-		<delete dir="${webServerResultDir}/export" />
 		<delete dir="${buildDirectory}/export" />
 		<svn javahl="false" username="anonymous" password="">
 			<export revision="HEAD" srcPath="${buildDirectory}/svn" destPath="${buildDirectory}/export/PM" />
