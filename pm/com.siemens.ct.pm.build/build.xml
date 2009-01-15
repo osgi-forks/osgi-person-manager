@@ -101,7 +101,7 @@
 		</copy>
 	</target>
 
-	<target name="buildAndDeploy" depends="buildFromSvn" />
+	<target name="buildAndDeploy" depends="buildFromSvn,deployToWebServer" />
 
 	<!--
    This target is run on the actual build server.
