@@ -12,26 +12,15 @@
         Run As -> Ant Build from the context menu. It could obviously be
         run outside of the IDE if you have ANT installed on your path.      
     -->
-<project name="net.eclipsetraining.contacts" default="buildFromWorkspace">
+<project name="com.siemens.ct.pm.build" default="buildFromWorkspace">
 	<property file="build.properties" />
 
-	<!--
-            PDE Build expects that the build directory contains a "plugins"
-            directory and a "features" directory. These directories should contain
-            the various plug-ins and features to be built.
-           
-            This tutorial simply copies the projects directly from the workspace
-            into the appropriate build directory folders.
-            
-            In this example required plug-ins not available in the SDK are 
-			also copied to the build directory.
-        -->
-	<target name="copyProjectsFromWorkspace">
+	<target name="copyProjectsFromFilesystem">
 		<mkdir dir="${buildDirectory}" />
 		<mkdir dir="${buildDirectory}/plugins" />
 		<mkdir dir="${buildDirectory}/features" />
 		<copy todir="${buildDirectory}/plugins">
-			<fileset dir="../">
+			<fileset dir="${sourceDir}">
 				<include name="com.siemens.ct.pm*/**" />
 				<include name="org.jdesktop.application*/**" />
 				<exclude name="com.siemens.ct.pm.build*/**" />
@@ -40,21 +29,23 @@
 			</fileset>
 		</copy>
 		<copy todir="${buildDirectory}/features">
-			<fileset dir="../">
+			<fileset dir="${sourceDir}">
 				<include name="com.siemens.ct.pm.feature*/**" />
 			</fileset>
 		</copy>
 		<copy todir="${buildDirectory}/target">
-			<fileset dir="../">
+			<fileset dir="${sourceDir}">
 				<include name="com.siemens.ct.pm.target/**" />
 			</fileset>
 		</copy>
 	</target>
 
-	<!--
-            This target actually executes the PDE Build process by launching the
-            Eclipse antRunner application.
-        -->
+	<target name="copyProjectsFromWorkspace">
+		<antcall target="copyProjectsFromFilesystem">
+			<param name="sourceDir" value="../" />
+		</antcall>
+	</target>
+
 	<target name="pde-build">
 		<echo message="Executing ${eclipseLocation}/plugins/org.eclipse.equinox.launcher_${equinoxLauncherPluginVersion}.jar" />
 		<java classname="org.eclipse.equinox.launcher.Main" fork="true" failonerror="true">
@@ -76,10 +67,13 @@
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="./svn/svnant.jar;./svn/svnClientAdapter.jar;./svn/svnkit.jar;./svn/ganymede.jar;./svn/svnjavahl.jar" />
 
 	<target name="fetchAllProjectsFromSvn">
-		<echo message="Checking out project ${project}" />
+		<echo message="Checking out all PM projects" />
 		<svn javahl="false" username="anonymous" password="">
-			<checkout revision="HEAD" url="https://max-server.myftp.org:444/svn/PM/trunk/pm" destPath="${buildDirectory}/svn" />
+			<checkout revision="HEAD" url="https://max-server.myftp.org:444/svn/pm/PM/trunk/pm" destPath="${buildDirectory}/svn" />
 		</svn>
+		<antcall target="copyProjectsFromFilesystem">
+			<param name="sourceDir" value="${buildDirectory}/svn" />
+		</antcall>
 	</target>
 
 	<target name="buildFromWorkspace" depends="clean,copyProjectsFromWorkspace,pde-build" />
@@ -121,9 +115,9 @@
 	<target name="bootstrapBuildFromSvn">
 		<delete dir="c:/temp/pm-build-bootstrap" />
 		<svn javahl="false" username="anonymous" password="">
-			<checkout revision="HEAD" url="https://max-server.myftp.org:444/svn/PM/trunk/pm/com.siemens.ct.p3.build" destPath="c:/temp/mp3m-build-bootstrap" />
+			<checkout revision="HEAD" url="https://max-server.myftp.org:444/svn/pm/PM/trunk/pm/com.siemens.ct.pm.build" destPath="c:/temp/pm-build-bootstrap" />
 		</svn>
-		<ant antfile="c:/temp/mp3m-build-bootstrap/build.xml" target="buildAndDeploy" dir="c:/temp/pm-build-bootstrap" />
+		<ant antfile="c:/temp/pm-build-bootstrap/build.xml" target="buildAndDeploy" dir="c:/temp/pm-build-bootstrap" />
 	</target>
 </project>
 
