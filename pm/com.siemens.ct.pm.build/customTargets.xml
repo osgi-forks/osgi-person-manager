@@ -67,6 +67,7 @@
 		<tstamp />
 		<property name="pmVersion" value="1.0.0.v${DSTAMP}${TSTAMP}" />
 		<concat destfile="${buildDirectory}/product.version">pmVersion=${pmVersion}</concat>
+		<!--
 		<replace dir="${buildDirectory}/plugins" value="${pmVersion}">
 			<include name="**/MANIFEST.MF" />
 			<replacetoken>1.0.0.qualifier</replacetoken>
@@ -75,7 +76,7 @@
 			<include name="**/feature.xml" />
 			<replacetoken>1.0.0.qualifier</replacetoken>
 		</replace>
-
+        -->
 	</target>
 
 	<!-- ===================================================================== -->
