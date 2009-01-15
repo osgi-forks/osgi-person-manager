@@ -93,7 +93,7 @@
 			<export revision="HEAD" srcPath="${buildDirectory}/svn" destPath="${buildDirectory}/export/PM" />
 		</svn>
 		<zip destfile="${buildDirectory}/export/PM-src-${pmVersion}.zip" basedir="${buildDirectory}/export/PM" />
-
+		<copy file="${buildDirectory}/export/PM-src-${pmVersion}.zip" todir="${webServerResultDir}/download" />
 		<copy file="pm-downloads.html" todir="${webServerResultDir}/download" overwrite="true">
 			<filterset>
 				<filter token="pmVersion" value="${pmVersion}" />
