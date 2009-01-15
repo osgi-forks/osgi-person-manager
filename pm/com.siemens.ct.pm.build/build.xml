@@ -83,24 +83,20 @@
 	<target name="deployToWebServer">
 		<property file="${buildDirectory}/product.version" />
 
-		<delete dir="${webServerResultDir}/repository" />
-		<copy todir="${webServerResultDir}/repository">
-			<fileset dir="c:/temp/mp3m-build/repo" />
-		</copy>
 		<delete dir="${webServerResultDir}/download" />
-		<copy todir="${webServerResultDir}/download">
-			<fileset dir="c:/temp/mp3m-build/result" />
-		</copy>
-		<property file="${buildDirectory}/product.version" />
-		<svn javahl="false" username="anonymous" password="">
-			<export revision="HEAD" srcUrl="https://max-server.myftp.org:444/svn/mp3m/MP3M/trunk/MP3M" destPath="${buildDirectory}/export/MP3M" />
-		</svn>
-		<zip destfile="${buildDirectory}/export/MP3M-src-${mp3mVersion}.zip" basedir="${buildDirectory}/export/MP3M" />
-		<copy file="${buildDirectory}/export/MP3M-src-${mp3mVersion}.zip" todir="${webServerResultDir}/download" />
+		<copy file="${buildDirectory}/I.PM/com.siemens.ct.pm.feature-PM-win32.win32.x86.zip" tofile="${webServerResultDir}/download/PM-${pmVersion}-win32.win32.x86.zip" />
+		<unzip src="${buildDirectory}/I.PM/com.siemens.ct.pm.feature-PM-win32.win32.x86.zip" dest="${webServerResultDir}/webstart" />
 
-		<copy file="mp3m-downloads.html" todir="${webServerResultDir}/download" overwrite="true">
+		<delete dir="${webServerResultDir}/export" />
+		<delete dir="${buildDirectory}/export" />
+		<svn javahl="false" username="anonymous" password="">
+			<export revision="HEAD" srcPath="${buildDirectory}/svn" destPath="${buildDirectory}/export/PM" />
+		</svn>
+		<zip destfile="${buildDirectory}/export/PM-src-${pmVersion}.zip" basedir="${buildDirectory}/export/PM" />
+
+		<copy file="pm-downloads.html" todir="${webServerResultDir}/download" overwrite="true">
 			<filterset>
-				<filter token="mp3mVersion" value="${mp3mVersion}" />
+				<filter token="pmVersion" value="${pmVersion}" />
 			</filterset>
 		</copy>
 	</target>
