@@ -19,9 +19,9 @@
 	</security>
 
 	<!-- The name of the main class to execute. This does not change-->
-	<application-desc main-class="org.eclipse.core.runtime.adaptor.EclipseStarter">
-		<argument>-nosplash</argument>
-	</application-desc>
+  <application-desc main-class="org.eclipse.equinox.launcher.WebStartMain">
+    <argument>-nosplash</argument>
+  </application-desc>
 
 	<resources>
 		<!-- Reference to the launcher jar. The version segment must be updated to the version being used-->
