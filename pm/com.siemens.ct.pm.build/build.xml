@@ -92,7 +92,8 @@
 
 		<zip destfile="${webServerResultDir}/download/PM-${pmVersion}.zip" basedir="${buildDirectory}/tmp/pm" />
 		<replace file="${buildDirectory}/tmp/pm/pm.jnlp" token="1.0.0.qualifier" value="${pmVersion}" />
-		
+		<replace file="${buildDirectory}/tmp/pm/pm.jnlp" token="jnlp.codebase" value="${jnlp.codebase}" />
+
 		<delete dir="${webServerResultDir}/webstart" />
 		<copy todir="${webServerResultDir}/webstart">
 			<fileset dir="${buildDirectory}/tmp/pm" />
@@ -100,15 +101,23 @@
 
 		<delete dir="${buildDirectory}/export" />
 		<svn javahl="false" username="anonymous" password="">
-			<export revision="HEAD" srcPath="${buildDirectory}/svn" destPath="${buildDirectory}/export/PM" />
+			<export revision="HEAD" srcPath="${svnSourceDir}" destPath="${buildDirectory}/export/PM" />
 		</svn>
 		<zip destfile="${buildDirectory}/export/PM-src-${pmVersion}.zip" basedir="${buildDirectory}/export/PM" />
 		<copy file="${buildDirectory}/export/PM-src-${pmVersion}.zip" todir="${webServerResultDir}/download" />
 	</target>
 
-    <target name="buildAndDeployFromWorkspace" depends="buildFromWorkspace,deployToWebServer" />
-
-	<target name="buildAndDeployFromSvn" depends="buildFromSvn,deployToWebServer" />
+	<target name="buildAndDeployFromWorkspace" depends="buildFromWorkspace">
+	      <antcall target="deployToWebServer">
+	            <param name="svnSourceDir" value="../" />
+	        </antcall>
+	</target>
+	
+	<target name="buildAndDeployFromSvn" depends="buildFromSvn">
+        <antcall target="deployToWebServer">
+              <param name="svnSourceDir" value="${buildDirectory}/svn" />
+          </antcall>
+  </target>
 
 	<!--
    This target is run on the actual build server.
