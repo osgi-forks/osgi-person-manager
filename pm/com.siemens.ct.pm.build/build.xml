@@ -61,6 +61,8 @@
 				<pathelement location="${eclipseLocation}/plugins/org.eclipse.equinox.launcher_${equinoxLauncherPluginVersion}.jar" />
 			</classpath>
 		</java>
+		<!-- restore the file -->
+		<replace file="./build.properties" token="${mp3m.storepass}" value="@storepass@" />
 	</target>
 
 	<target name="clean">
