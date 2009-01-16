@@ -47,6 +47,9 @@
 	</target>
 
 	<target name="pde-build">
+		<!-- the sign.storepass property -->
+		<property file="c:/keystore/build.properties" />
+		<replace file="./build.properties" token="@storepass@" value="${mp3m.storepass}" />
 		<echo message="Executing ${eclipseLocation}/plugins/org.eclipse.equinox.launcher_${equinoxLauncherPluginVersion}.jar" />
 		<java classname="org.eclipse.equinox.launcher.Main" fork="true" failonerror="true">
 			<arg value="-application" />
@@ -108,16 +111,16 @@
 	</target>
 
 	<target name="buildAndDeployFromWorkspace" depends="buildFromWorkspace">
-	      <antcall target="deployToWebServer">
-	            <param name="svnSourceDir" value="../" />
-	        </antcall>
+		<antcall target="deployToWebServer">
+			<param name="svnSourceDir" value="../" />
+		</antcall>
 	</target>
-	
+
 	<target name="buildAndDeployFromSvn" depends="buildFromSvn">
-        <antcall target="deployToWebServer">
-              <param name="svnSourceDir" value="${buildDirectory}/svn" />
-          </antcall>
-  </target>
+		<antcall target="deployToWebServer">
+			<param name="svnSourceDir" value="${buildDirectory}/svn" />
+		</antcall>
+	</target>
 
 	<!--
    This target is run on the actual build server.
@@ -129,7 +132,7 @@
 		<svn javahl="false" username="anonymous" password="">
 			<checkout revision="HEAD" url="https://max-server.myftp.org:444/svn/pm/PM/trunk/pm/com.siemens.ct.pm.build" destPath="c:/temp/pm-build-bootstrap" />
 		</svn>
-		<ant antfile="c:/temp/pm-build-bootstrap/build.xml" target="buildAndDeployFromSvn" dir="c:/temp/pm-build-bootstrap" inheritAll="false"/>
+		<ant antfile="c:/temp/pm-build-bootstrap/build.xml" target="buildAndDeployFromSvn" dir="c:/temp/pm-build-bootstrap" inheritAll="false" />
 	</target>
 </project>
 
