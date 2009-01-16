@@ -69,6 +69,10 @@
 		<concat destfile="${buildDirectory}/product.version">pmVersion=${pmVersion}</concat>
 
 		<replace dir="${buildDirectory}/plugins" value="${pmVersion}">
+			<include name="**/*.java" />
+			<replacetoken>@version@</replacetoken>
+		</replace>
+		<replace dir="${buildDirectory}/plugins" value="${pmVersion}">
 			<include name="**/MANIFEST.MF" />
 			<replacetoken>1.0.0.qualifier</replacetoken>
 		</replace>
