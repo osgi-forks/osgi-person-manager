@@ -106,7 +106,9 @@
 		<copy file="${buildDirectory}/export/PM-src-${pmVersion}.zip" todir="${webServerResultDir}/download" />
 	</target>
 
-	<target name="buildAndDeploy" depends="buildFromSvn,deployToWebServer" />
+    <target name="buildAndDeployFromWorkspace" depends="buildFromWorkspace,deployToWebServer" />
+
+	<target name="buildAndDeployFromSvn" depends="buildFromSvn,deployToWebServer" />
 
 	<!--
    This target is run on the actual build server.
@@ -118,7 +120,7 @@
 		<svn javahl="false" username="anonymous" password="">
 			<checkout revision="HEAD" url="https://max-server.myftp.org:444/svn/pm/PM/trunk/pm/com.siemens.ct.pm.build" destPath="c:/temp/pm-build-bootstrap" />
 		</svn>
-		<ant antfile="c:/temp/pm-build-bootstrap/build.xml" target="buildAndDeploy" dir="c:/temp/pm-build-bootstrap" />
+		<ant antfile="c:/temp/pm-build-bootstrap/build.xml" target="buildAndDeployFromSvn" dir="c:/temp/pm-build-bootstrap" />
 	</target>
 </project>
 

@@ -19,13 +19,13 @@
 	</security>
 
 	<!-- The name of the main class to execute. This does not change-->
-  <application-desc main-class="org.eclipse.equinox.launcher.WebStartMain">
+  <application-desc main-class="org.eclipse.core.runtime.adaptor.EclipseStarter">
     <argument>-nosplash</argument>
   </application-desc>
 
 	<resources>
 		<!-- Reference to the launcher jar. The version segment must be updated to the version being used-->
-		<jar href="plugins/org.eclipse.osgi_3.4.0.v20080605-1900.jar" />
+		<jar href="plugins/org.eclipse.osgi_3.4.2.R34x_v20080826-1230.jar" />
 
 		<!-- Reference to all the plugins and features constituting the application -->
 		<!-- Here we are referring to the wrapper feature since it transitively refers to all the other plug-ins  necessary -->
