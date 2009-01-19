@@ -30,122 +30,128 @@ import javax.swing.border.EmptyBorder;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.SingleFrameApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PersonManagerApplication extends SingleFrameApplication {
 
-    private JMenuBar menuBar;
-    private JToolBar toolBar;
-    private JTabbedPane viewContainer;
-    private AboutDialog aboutDialog;
+	private JMenuBar menuBar;
+	private JToolBar toolBar;
+	private JTabbedPane viewContainer;
+	private AboutDialog aboutDialog;
+	private final Logger logger = LoggerFactory
+			.getLogger(PersonManagerApplication.class);
 
-    @Action
-    public void showAboutDialog() {
-        if (aboutDialog == null) {
-            JFrame mainFrame = getMainFrame();
-            aboutDialog = new AboutDialog(mainFrame);
-            aboutDialog.setLocationRelativeTo(mainFrame);
-        }
-        show(aboutDialog);
-    }
+	@Action
+	public void showAboutDialog() {
+		if (aboutDialog == null) {
+			JFrame mainFrame = getMainFrame();
+			aboutDialog = new AboutDialog(mainFrame);
+			aboutDialog.setLocationRelativeTo(mainFrame);
+		}
+		show(aboutDialog);
+	}
 
-    private javax.swing.Action getAction(String actionName) {
-        return getContext().getActionMap().get(actionName);
-    }
+	private javax.swing.Action getAction(String actionName) {
+		return getContext().getActionMap().get(actionName);
+	}
 
-    private JMenu createMenu(String menuName, String[] actionNames) {
-        JMenu menu = new JMenu();
-        menu.setName(menuName);
-        if (actionNames != null) {
-            for (String actionName : actionNames) {
-                if (actionName.equals("---")) {
-                    menu.add(new JSeparator());
-                } else {
-                    JMenuItem menuItem = new JMenuItem();
-                    menuItem.setAction(getAction(actionName));
-                    menu.add(menuItem);
-                }
-            }
-        }
-        return menu;
-    }
+	private JMenu createMenu(String menuName, String[] actionNames) {
+		JMenu menu = new JMenu();
+		menu.setName(menuName);
+		if (actionNames != null) {
+			for (String actionName : actionNames) {
+				if (actionName.equals("---")) {
+					menu.add(new JSeparator());
+				} else {
+					JMenuItem menuItem = new JMenuItem();
+					menuItem.setAction(getAction(actionName));
+					menu.add(menuItem);
+				}
+			}
+		}
+		return menu;
+	}
 
-    private JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        String[] fileMenuActionNames = { "quit" };
-        menuBar.add(createMenu("fileMenu", fileMenuActionNames));
-        menuBar.add(createMenu("actionsMenu", null));
-        String[] helpMenuActionNames = { "showAboutDialog" };
-        menuBar.add(createMenu("helpMenu", helpMenuActionNames));
-        return menuBar;
-    }
+	private JMenuBar createMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		String[] fileMenuActionNames = { "quit" };
+		menuBar.add(createMenu("fileMenu", fileMenuActionNames));
+		menuBar.add(createMenu("actionsMenu", null));
+		String[] helpMenuActionNames = { "showAboutDialog" };
+		menuBar.add(createMenu("helpMenu", helpMenuActionNames));
+		return menuBar;
+	}
 
-    private JToolBar createToolBar() {
-        String[] toolbarActionNames = {};
-        toolBar = new JToolBar();
-        toolBar.setFloatable(false);
-        for (String actionName : toolbarActionNames) {
-            if (actionName.equals("---")) {
-                toolBar.addSeparator();
-            } else {
-                JButton button = new JButton();
-                button.setAction(getAction(actionName));
-                button.setText(null);
-                button.setFocusable(false);
-                toolBar.add(button);
-            }
-        }
-        return toolBar;
+	private JToolBar createToolBar() {
+		String[] toolbarActionNames = {};
+		toolBar = new JToolBar();
+		toolBar.setFloatable(false);
+		for (String actionName : toolbarActionNames) {
+			if (actionName.equals("---")) {
+				toolBar.addSeparator();
+			} else {
+				JButton button = new JButton();
+				button.setAction(getAction(actionName));
+				button.setText(null);
+				button.setFocusable(false);
+				toolBar.add(button);
+			}
+		}
+		return toolBar;
 
-    }
+	}
 
-    private JComponent createMainPanel() {
+	private JComponent createMainPanel() {
 
-        viewContainer = new JTabbedPane();
+		viewContainer = new JTabbedPane();
 
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(viewContainer, BorderLayout.CENTER);
-        panel.add(createToolBar(), BorderLayout.NORTH);
-        panel.setBorder(new EmptyBorder(0, 4, 4, 4));
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(viewContainer, BorderLayout.CENTER);
+		panel.add(createToolBar(), BorderLayout.NORTH);
+		panel.setBorder(new EmptyBorder(0, 4, 4, 4));
 
-        return panel;
+		return panel;
 
-    }
+	}
 
-    @Override
-    protected void startup() {
-        String laf = null;
-        try {
-            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    laf = info.getClassName();
-                    break;
-                }
-            }
-            if (laf == null) {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } else {
-                UIManager.setLookAndFeel(laf);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	@Override
+	protected void startup() {
+		String laf = null;
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					laf = info.getClassName();
+					break;
+				}
+			}
+			if (laf == null) {
+				UIManager.setLookAndFeel(UIManager
+						.getSystemLookAndFeelClassName());
+			} else {
+				UIManager.setLookAndFeel(laf);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        menuBar = createMenuBar();
-        getMainFrame().setJMenuBar(menuBar);
-        JComponent mainPanel = createMainPanel();
-        System.out.println("Application UI skeleton initialized");
+		menuBar = createMenuBar();
+		getMainFrame().setJMenuBar(menuBar);
+		JComponent mainPanel = createMainPanel();
+		logger.info("Application UI skeleton initialized");
 
-        PersonManagerApplicationComponent.getActionServiceManager().initialize(this, toolBar,
-                menuBar);
-        PersonManagerApplicationComponent.getViewServiceManager().initialize(viewContainer);
+		PersonManagerApplicationComponent.getActionServiceManager().initialize(
+				this, toolBar, menuBar);
+		PersonManagerApplicationComponent.getViewServiceManager().initialize(
+				viewContainer);
 
-        show(mainPanel);
-    }
+		show(mainPanel);
+	}
 
-    /**
-     * Runs after the startup has completed and the GUI is up and ready.
-     */
-    @Override
-    protected void ready() {
-    }
+	/**
+	 * Runs after the startup has completed and the GUI is up and ready.
+	 */
+	@Override
+	protected void ready() {
+	}
 }

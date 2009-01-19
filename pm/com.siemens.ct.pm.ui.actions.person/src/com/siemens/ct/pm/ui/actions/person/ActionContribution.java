@@ -12,51 +12,52 @@ import com.siemens.ct.pm.application.service.ISelectionListener;
 import com.siemens.ct.pm.model.IPerson;
 import com.siemens.ct.pm.model.IPersonManager;
 
-public class ActionContribution implements IActionContribution, ISelectionListener {
+public class ActionContribution implements IActionContribution,
+		ISelectionListener {
 
-    private final List<Action> actions;
-    private final DeletePersonAction deletePersonAction;
+	private final List<Action> actions;
+	private final DeletePersonAction deletePersonAction;
 
-    public ActionContribution() {
-        super();
-        actions = new ArrayList<Action>();
-        actions.add(new AddPersonAction());
+	public ActionContribution() {
+		super();
+		actions = new ArrayList<Action>();
+		actions.add(new AddPersonAction());
 
-        deletePersonAction = new DeletePersonAction();
-        actions.add(deletePersonAction);
-    }
+		deletePersonAction = new DeletePersonAction();
+		actions.add(deletePersonAction);
+	}
 
-    @Override
-    public List<Action> getActions(Application application) {
-        return actions;
-    }
+	@Override
+	public List<Action> getActions(Application application) {
+		return actions;
+	}
 
-    @Override
-    public String getMenuLocation() {
-        return "actions";
-    }
+	@Override
+	public String getMenuLocation() {
+		return "actions";
+	}
 
-    @Override
-    public String getToolBarLocation() {
-        return "actions";
-    }
+	@Override
+	public String getToolBarLocation() {
+		return "actions";
+	}
 
-    @Override
-    public void selectionChanged(Object selectedObject) {
-        if (selectedObject instanceof IPerson) {
-            deletePersonAction.setSelectedPerson((IPerson) selectedObject);
-            deletePersonAction.setEnabled(true);
-        } else {
-            deletePersonAction.setSelectedPerson(null);
-            deletePersonAction.setEnabled(false);
-        }
-    }
+	@Override
+	public void selectionChanged(Object selectedObject) {
+		if (selectedObject instanceof IPerson) {
+			deletePersonAction.setSelectedPerson((IPerson) selectedObject);
+			deletePersonAction.setEnabled(true);
+		} else {
+			deletePersonAction.setSelectedPerson(null);
+			deletePersonAction.setEnabled(false);
+		}
+	}
 
-    public synchronized void removePersonManager() {
-        deletePersonAction.setPersonManager(null);
-    }
+	public synchronized void removePersonManager() {
+		deletePersonAction.setPersonManager(null);
+	}
 
-    public synchronized void setPersonManager(IPersonManager personManager) {
-        deletePersonAction.setPersonManager(personManager);
-    }
+	public synchronized void setPersonManager(IPersonManager personManager) {
+		deletePersonAction.setPersonManager(personManager);
+	}
 }
