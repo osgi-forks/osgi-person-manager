@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <component name="com.siemens.ct.pm.ui.views.treeView">
     <implementation
-        class="com.siemens.ct.pm.ui.views.treeview.TreeView"/>
+        class="com.siemens.ct.pm.ui.views.treeview.ds.TreeView"/>
     <service>
         <provide
             interface="com.siemens.ct.pm.application.service.IViewContribution"/>

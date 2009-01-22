@@ -103,20 +103,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.siemens.ct.pm.ui.views.tableview"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.siemens.ct.pm.ui.views.treeview"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="com.siemens.ct.pm.ui.views.treeview.dm"
          download-size="0"
          install-size="0"
@@ -240,6 +226,20 @@
          install-size="0"
          version="0.0.0"
          fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.siemens.ct.pm.ui.views.tableview.ds"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.siemens.ct.pm.ui.views.treeview.ds"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>

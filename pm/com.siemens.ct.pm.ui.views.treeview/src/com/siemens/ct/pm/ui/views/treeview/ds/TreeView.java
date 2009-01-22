@@ -10,12 +10,11 @@
  *    Kai Toedter - initial API and implementation
  *******************************************************************************/
 
-package com.siemens.ct.pm.ui.views.treeview.dm;
+package com.siemens.ct.pm.ui.views.treeview.ds;
 
 import java.awt.Color;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -54,8 +53,7 @@ public class TreeView implements IViewContribution, IPersonListener {
 
     public TreeView() {
 	super();
-	icon = new ImageIcon(this.getClass().getResource(
-		"/icons/folder_user.png"));
+	icon = new ImageIcon(this.getClass().getResource("/icons/folder.png"));
 	top = new DefaultMutableTreeNode("Persons");
 
 	tree = new JTree(top);
@@ -65,9 +63,9 @@ public class TreeView implements IViewContribution, IPersonListener {
 		.createLineBorder(Color.lightGray)));
 
 	ImageIcon folderIcon = new ImageIcon(this.getClass().getResource(
-		"/icons/folder_user.png"));
+		"/icons/folder.png"));
 	ImageIcon leafIcon = new ImageIcon(this.getClass().getResource(
-		"/icons/user_gray.png"));
+		"/icons/user.png"));
 	if (leafIcon != null) {
 	    DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
 	    renderer.setLeafIcon(leafIcon);
@@ -119,7 +117,7 @@ public class TreeView implements IViewContribution, IPersonListener {
 
     @Override
     public String getName() {
-	return "Tree View (DM)";
+	return "Tree View (DS)";
     }
 
     @Override
@@ -142,21 +140,21 @@ public class TreeView implements IViewContribution, IPersonListener {
 	this.selectionService = selectionService;
     }
 
-    @SuppressWarnings("unchecked")
-    public synchronized void removePersonManager(IPersonManager personManager,
-	    Map properties) {
+    public synchronized void removePersonManager(IPersonManager personManager) {
 	logger.info("removePersonManager");
-	this.personManager = null;
-	top.removeAllChildren();
-	((DefaultTreeModel) tree.getModel()).reload(top);
+	if (this.personManager == personManager) {
+	    this.personManager = null;
+	    top.removeAllChildren();
+	    ((DefaultTreeModel) tree.getModel()).reload(top);
+	}
     }
 
-    @SuppressWarnings("unchecked")
-    public synchronized void setPersonManager(IPersonManager personManager,
-	    Map properties) {
+    public synchronized void setPersonManager(IPersonManager personManager) {
 	logger.info("set personManager: " + personManager);
 	this.personManager = personManager;
+	top.removeAllChildren();
 	createNodes(top);
+	((DefaultTreeModel) tree.getModel()).reload(top);
 	expand(new TreePath(top));
     }
 

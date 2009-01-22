@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <component name="com.siemens.ct.pm.ui.views.tableView">
     <implementation
-        class="com.siemens.ct.pm.ui.views.tableview.TableView"/>
+        class="com.siemens.ct.pm.ui.views.tableview.ds.TableView"/>
 
     <service>
         <provide
