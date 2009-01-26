@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Treeview with Peaberry Plug-in
+Bundle-SymbolicName: com.siemens.ct.pm.ui.views.treeview.pb
+Bundle-Version: 1.0.0
+Bundle-Activator: com.siemens.ct.pm.ui.views.treeview.pb.Activator
+Bundle-Vendor: Siemens AG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.google.inject;version="[1,2)",
+ com.google.inject.binder;version="[1,2)",
+ com.siemens.ct.pm.application.service,
+ com.siemens.ct.pm.model,
+ com.siemens.ct.pm.model.event,
+ org.ops4j.peaberry;version="[1,2)",
+ org.ops4j.peaberry.builders;version="[1,2)",
+ org.ops4j.peaberry.util;version="[1,2)",
+ org.osgi.framework;version="1.3.0",
+ org.slf4j;version="1.5.0"
+Bundle-ActivationPolicy: lazy

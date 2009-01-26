@@ -37,148 +37,148 @@ import com.siemens.ct.pm.model.event.PersonEvent;
 
 public class TableView implements IViewContribution, IPersonListener {
 
-    private final ImageIcon icon;
-    private final JComponent view;
-    private IPersonManager personManager;
-    private ISelectionService selectionService;
-    private final JTable table;
-    private final Logger logger = LoggerFactory.getLogger(TableView.class);
+	private final ImageIcon icon;
+	private final JComponent view;
+	private IPersonManager personManager;
+	private ISelectionService selectionService;
+	private final JTable table;
+	private final Logger logger = LoggerFactory.getLogger(TableView.class);
 
-    @SuppressWarnings("serial")
-    class TableModel extends AbstractTableModel {
+	@SuppressWarnings("serial")
+	class TableModel extends AbstractTableModel {
 
-	@Override
-	public String getColumnName(int column) {
-	    switch (column) {
-	    case 0:
-		return "First Name";
+		@Override
+		public String getColumnName(int column) {
+			switch (column) {
+			case 0:
+				return "First Name";
 
-	    case 1:
-		return "Last Name";
+			case 1:
+				return "Last Name";
 
-	    case 2:
-		return "Company";
+			case 2:
+				return "Company";
 
-	    default:
-		return null;
-	    }
-	}
-
-	@Override
-	public int getColumnCount() {
-	    return 3;
-	}
-
-	@Override
-	public int getRowCount() {
-	    if (personManager == null) {
-		return 0;
-	    }
-	    return personManager.getPersons().size();
-	}
-
-	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-	    if (personManager == null) {
-		return null;
-	    }
-
-	    IPerson person = personManager.getPersons().get(rowIndex);
-	    switch (columnIndex) {
-	    case 0:
-		return person.getFirstName();
-
-	    case 1:
-		return person.getLastName();
-
-	    case 2:
-		return person.getCompany();
-
-	    default:
-		return null;
-	    }
-	}
-    }
-
-    public TableView() {
-	super();
-	icon = new ImageIcon(this.getClass().getResource("/icons/table.png"));
-	table = new JTable(new TableModel());
-
-	table.getColumnModel().getColumn(0).setPreferredWidth(100);
-	table.getColumnModel().getColumn(0).setMaxWidth(100);
-	table.getColumnModel().getColumn(1).setPreferredWidth(100);
-	table.getColumnModel().getColumn(1).setMaxWidth(100);
-
-	table.setColumnSelectionAllowed(false);
-	table.setRowSelectionAllowed(true);
-	table.getSelectionModel().setSelectionMode(
-		ListSelectionModel.SINGLE_SELECTION);
-	table.getSelectionModel().addListSelectionListener(
-		new ListSelectionListener() {
-
-		    @Override
-		    public void valueChanged(ListSelectionEvent e) {
-			if (e.getValueIsAdjusting()
-				&& table.getSelectedRow() != -1) {
-			    IPerson selectedPerson = personManager.getPersons()
-				    .get(table.getSelectedRow());
-			    selectionService.objectSelected(selectedPerson);
+			default:
+				return null;
 			}
-		    }
+		}
 
-		});
+		@Override
+		public int getColumnCount() {
+			return 3;
+		}
 
-	view = new JScrollPane(table);
-	view.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-		.createEmptyBorder(2, 2, 2, 2), BorderFactory
-		.createLineBorder(Color.lightGray)));
-    }
+		@Override
+		public int getRowCount() {
+			if (personManager == null) {
+				return 0;
+			}
+			return personManager.getPersons().size();
+		}
 
-    @Override
-    public Icon getIcon() {
-	return icon;
-    }
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			if (personManager == null) {
+				return null;
+			}
 
-    @Override
-    public String getName() {
-	return "Table View (DS)";
-    }
+			IPerson person = personManager.getPersons().get(rowIndex);
+			switch (columnIndex) {
+			case 0:
+				return person.getFirstName();
 
-    @Override
-    public JComponent getView() {
-	return view;
-    }
+			case 1:
+				return person.getLastName();
 
-    @Override
-    public int getPosition() {
-	return 2;
-    }
+			case 2:
+				return person.getCompany();
 
-    public synchronized void removeSelectionService(
-	    ISelectionService selectionService) {
-	this.selectionService = null;
-    }
+			default:
+				return null;
+			}
+		}
+	}
 
-    public synchronized void setSelectionService(
-	    ISelectionService selectionService) {
-	this.selectionService = selectionService;
-    }
+	public TableView() {
+		super();
+		icon = new ImageIcon(this.getClass().getResource("/icons/table.png"));
+		table = new JTable(new TableModel());
 
-    public synchronized void removePersonManager(IPersonManager personManager) {
-	logger.info("removePersonManager: " + personManager);
-	this.personManager = null;
-	((AbstractTableModel) table.getModel()).fireTableDataChanged();
-    }
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(0).setMaxWidth(100);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setMaxWidth(100);
 
-    public synchronized void setPersonManager(IPersonManager personManager) {
-	logger.info("set personManager: " + personManager);
-	this.personManager = personManager;
-	((AbstractTableModel) table.getModel()).fireTableDataChanged();
-    }
+		table.setColumnSelectionAllowed(false);
+		table.setRowSelectionAllowed(true);
+		table.getSelectionModel().setSelectionMode(
+				ListSelectionModel.SINGLE_SELECTION);
+		table.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener() {
 
-    @Override
-    public void handleEvent(PersonEvent event) {
-	((AbstractTableModel) table.getModel()).fireTableDataChanged();
-    }
+					@Override
+					public void valueChanged(ListSelectionEvent e) {
+						if (e.getValueIsAdjusting()
+								&& table.getSelectedRow() != -1) {
+							IPerson selectedPerson = personManager.getPersons()
+									.get(table.getSelectedRow());
+							selectionService.objectSelected(selectedPerson);
+						}
+					}
+
+				});
+
+		view = new JScrollPane(table);
+		view.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+				.createEmptyBorder(2, 2, 2, 2), BorderFactory
+				.createLineBorder(Color.lightGray)));
+	}
+
+	@Override
+	public Icon getIcon() {
+		return icon;
+	}
+
+	@Override
+	public String getName() {
+		return "Table View (DS)";
+	}
+
+	@Override
+	public JComponent getView() {
+		return view;
+	}
+
+	@Override
+	public int getPosition() {
+		return 4;
+	}
+
+	public synchronized void removeSelectionService(
+			ISelectionService selectionService) {
+		this.selectionService = null;
+	}
+
+	public synchronized void setSelectionService(
+			ISelectionService selectionService) {
+		this.selectionService = selectionService;
+	}
+
+	public synchronized void removePersonManager(IPersonManager personManager) {
+		logger.info("removePersonManager: " + personManager);
+		this.personManager = null;
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+	}
+
+	public synchronized void setPersonManager(IPersonManager personManager) {
+		logger.info("set personManager: " + personManager);
+		this.personManager = personManager;
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+	}
+
+	@Override
+	public void handleEvent(PersonEvent event) {
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+	}
 }

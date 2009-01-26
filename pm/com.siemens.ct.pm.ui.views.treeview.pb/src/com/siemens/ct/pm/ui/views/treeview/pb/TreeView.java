@@ -10,7 +10,7 @@
  *    Kai Toedter - initial API and implementation
  *******************************************************************************/
 
-package com.siemens.ct.pm.ui.views.treeview.ds;
+package com.siemens.ct.pm.ui.views.treeview.pb;
 
 import java.awt.Color;
 import java.util.Enumeration;
@@ -44,9 +44,11 @@ public class TreeView implements IViewContribution, IPersonListener {
 
 	private final ImageIcon icon;
 	private final JComponent view;
+
 	private IPersonManager personManager;
+
 	private ISelectionService selectionService;
-	private final Logger logger = LoggerFactory.getLogger(TreeView.class);
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private final JTree tree;
 	private final DefaultMutableTreeNode top;
@@ -117,7 +119,7 @@ public class TreeView implements IViewContribution, IPersonListener {
 
 	@Override
 	public String getName() {
-		return "Tree View (DS)";
+		return "Tree View (P)";
 	}
 
 	@Override
@@ -127,7 +129,7 @@ public class TreeView implements IViewContribution, IPersonListener {
 
 	@Override
 	public int getPosition() {
-		return 1;
+		return 3;
 	}
 
 	public synchronized void removeSelectionService(
@@ -138,24 +140,6 @@ public class TreeView implements IViewContribution, IPersonListener {
 	public synchronized void setSelectionService(
 			ISelectionService selectionService) {
 		this.selectionService = selectionService;
-	}
-
-	public synchronized void removePersonManager(IPersonManager personManager) {
-		logger.info("removePersonManager");
-		if (this.personManager == personManager) {
-			this.personManager = null;
-			top.removeAllChildren();
-			((DefaultTreeModel) tree.getModel()).reload(top);
-		}
-	}
-
-	public synchronized void setPersonManager(IPersonManager personManager) {
-		logger.info("set personManager: " + personManager);
-		this.personManager = personManager;
-		top.removeAllChildren();
-		createNodes(top);
-		((DefaultTreeModel) tree.getModel()).reload(top);
-		expand(new TreePath(top));
 	}
 
 	@Override
@@ -210,4 +194,23 @@ public class TreeView implements IViewContribution, IPersonListener {
 		}
 		tree.expandPath(parent);
 	}
+
+	public synchronized void removePersonManager(IPersonManager personManager) {
+		logger.info("removePersonManager");
+		if (this.personManager == personManager) {
+			this.personManager = null;
+			top.removeAllChildren();
+			((DefaultTreeModel) tree.getModel()).reload(top);
+		}
+	}
+
+	public synchronized void setPersonManager(IPersonManager personManager) {
+		logger.info("set personManager: " + personManager);
+		this.personManager = personManager;
+		top.removeAllChildren();
+		createNodes(top);
+		((DefaultTreeModel) tree.getModel()).reload(top);
+		expand(new TreePath(top));
+	}
+
 }
