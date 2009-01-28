@@ -12,4 +12,5 @@ Import-Package: org.jdesktop.application,
 Export-Package: com.siemens.ct.pm.application,
  com.siemens.ct.pm.application.service
 Service-Component: OSGI-INF/selectionService.xml, OSGI-INF/PersonManagerApplicationComponent.xml
+Bundle-Activator: com.siemens.ct.pm.application.Activator
 
