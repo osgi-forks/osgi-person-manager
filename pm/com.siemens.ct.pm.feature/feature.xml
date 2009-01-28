@@ -270,4 +270,18 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="com.siemens.ct.pm.ui.views.treeview.ipojo"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.felix.ipojo"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
