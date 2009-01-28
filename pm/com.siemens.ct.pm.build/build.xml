@@ -61,14 +61,16 @@
 				<pathelement location="${eclipseLocation}/plugins/org.eclipse.equinox.launcher_${equinoxLauncherPluginVersion}.jar" />
 			</classpath>
 		</java>
-		<!-- restore the file -->
-		<replace file="./build.properties" token="${mp3m.storepass}" value="@storepass@" />
 
 		<!--- Do the iPOJO jar manipulation -->
 		<property file="${buildDirectory}/product.version" />
 		<ipojo input="${buildDirectory}/tmp/pm/plugins/com.siemens.ct.pm.ui.views.treeview.ipojo_${pmVersion}.jar"
 			        metadata="${buildDirectory}/plugins/com.siemens.ct.pm.ui.views.treeview.ipojo/metadata.xml" />
+		<signjar jar="${buildDirectory}/tmp/pm/plugins/com.siemens.ct.pm.ui.views.treeview.ipojo_${pmVersion}.jar"
+			alias="${sign.alias}" keystore="${sign.keystore}" storepass="${mp3m.storepass}"/>
 
+		<!-- restore the build.properties file -->
+		<replace file="./build.properties" token="${mp3m.storepass}" value="@storepass@" />
 	</target>
 
 	<target name="clean">
