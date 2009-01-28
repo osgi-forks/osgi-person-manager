@@ -63,6 +63,12 @@
 		</java>
 		<!-- restore the file -->
 		<replace file="./build.properties" token="${mp3m.storepass}" value="@storepass@" />
+
+		<!--- Do the iPOJO jar manipulation -->
+		<property file="${buildDirectory}/product.version" />
+		<ipojo input="${buildDirectory}/tmp/pm/plugins/com.siemens.ct.pm.ui.views.treeview.ipojo_${pmVersion}.jar"
+			        metadata="${buildDirectory}/plugins/com.siemens.ct.pm.ui.views.treeview.ipojo/metadata.xml" />
+
 	</target>
 
 	<target name="clean">
@@ -84,6 +90,8 @@
 	<target name="buildFromWorkspace" depends="clean,copyProjectsFromWorkspace,pde-build" />
 
 	<target name="buildFromSvn" depends="clean,fetchAllProjectsFromSvn,pde-build" />
+
+	<taskdef name="ipojo" classpath="./ipojo/org.apache.felix.ipojo.ant-1.0.0.jar" classname="org.apache.felix.ipojo.task.IPojoTask" />
 
 	<target name="deployToWebServer">
 		<property file="${buildDirectory}/product.version" />
