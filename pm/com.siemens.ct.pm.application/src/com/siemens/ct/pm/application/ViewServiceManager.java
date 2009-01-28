@@ -17,6 +17,7 @@ import java.util.HashMap;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,7 @@ public class ViewServiceManager {
 		waitUntilInitialized();
 		logger.info("adding service: " + viewContribution);
 		JComponent view = viewContribution.getView();
+		SwingUtilities.updateComponentTreeUI(view);
 		positionMap.put(view, viewContribution.getPosition());
 		if (serviceCount == 0) {
 			viewContainer.remove(label);

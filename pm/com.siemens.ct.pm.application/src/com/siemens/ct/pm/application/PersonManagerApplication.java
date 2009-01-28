@@ -24,8 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
 import org.jdesktop.application.Action;
@@ -117,24 +115,6 @@ public class PersonManagerApplication extends SingleFrameApplication {
 
 	@Override
 	protected void startup() {
-		String laf = null;
-		try {
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					laf = info.getClassName();
-					break;
-				}
-			}
-			if (laf == null) {
-				UIManager.setLookAndFeel(UIManager
-						.getSystemLookAndFeelClassName());
-			} else {
-				UIManager.setLookAndFeel(laf);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 		menuBar = createMenuBar();
 		getMainFrame().setJMenuBar(menuBar);
 		JComponent mainPanel = createMainPanel();
