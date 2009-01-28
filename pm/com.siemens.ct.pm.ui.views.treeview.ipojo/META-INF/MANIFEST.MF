@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: TreeView iPOJO Plug-in
 Bundle-SymbolicName: com.siemens.ct.pm.ui.views.treeview.ipojo
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Siemens AG
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: com.siemens.ct.pm.model;bundle-version="1.0.0",
