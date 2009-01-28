@@ -5,12 +5,15 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Activator implements BundleActivator {
 
+	private final Logger logger = LoggerFactory.getLogger(Activator.class);
+
 	@Override
 	public void start(BundleContext context) throws Exception {
-		System.out.println("Activator.start()XXXXXXXXXXXXXXXXXXXXx");
 		String laf = null;
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -26,7 +29,7 @@ public class Activator implements BundleActivator {
 				UIManager.setLookAndFeel(laf);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
 		}
 	}
 
