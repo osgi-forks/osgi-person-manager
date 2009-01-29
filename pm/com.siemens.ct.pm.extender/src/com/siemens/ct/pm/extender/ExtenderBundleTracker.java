@@ -36,6 +36,7 @@ public class ExtenderBundleTracker extends AbstractBundleTracker {
 		serviceMap = new HashMap<String, ServiceRegistration>();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void tracked(Bundle bundle) {
 		String className = (String) bundle.getHeaders().get(
@@ -45,7 +46,8 @@ public class ExtenderBundleTracker extends AbstractBundleTracker {
 			try {
 				clazz = bundle.loadClass(className);
 				try {
-					ServiceRegistration serviceRegistration = context
+					ServiceRegistration serviceRegistration = bundle
+							.getBundleContext()
 							.registerService(
 									"com.siemens.ct.pm.application.service.IActionContribution",
 									clazz.newInstance(), null);
@@ -68,11 +70,8 @@ public class ExtenderBundleTracker extends AbstractBundleTracker {
 
 	@Override
 	protected void untracked(Bundle bundle) {
-		ServiceRegistration serviceRegistration = serviceMap.get(bundle
-				.getSymbolicName());
-		if (serviceRegistration != null) {
-			serviceRegistration.unregister();
-		}
+		// Nothing to do since the service is registered with the tracked
+		// bundle's context
 	}
 
 }
