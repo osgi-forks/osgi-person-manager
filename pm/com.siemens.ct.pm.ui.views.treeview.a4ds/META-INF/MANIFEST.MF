@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: A4DS Treeview Plug-in
+Bundle-SymbolicName: com.siemens.ct.pm.ui.views.treeview.a4ds
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Siemens AG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.siemens.ct.osgi.a4ds,
+ com.siemens.ct.pm.application.service,
+ com.siemens.ct.pm.model,
+ com.siemens.ct.pm.model.event,
+ org.slf4j;version="1.5.0"
+Export-Package: com.siemens.ct.pm.ui.views.treeview.a4ds
+Service-Component: OSGI-INF/*
