@@ -5,7 +5,7 @@ Bundle-SymbolicName: com.siemens.ct.pm.ui.views.treeview.a4ds
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Siemens AG
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: com.siemens.ct.osgi.a4ds,
+Import-Package: com.siemens.ct.osgi.a4ds;resolution:=optional,
  com.siemens.ct.pm.application.service,
  com.siemens.ct.pm.model,
  com.siemens.ct.pm.model.event,
