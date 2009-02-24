@@ -164,7 +164,7 @@ public class Processor extends AbstractProcessor {
 						if (!foundInterface) {
 							processingEnv.getMessager().printMessage(
 									Diagnostic.Kind.ERROR,
-									"class does not implement declared interface \""
+									"Class does not implement declared interface \""
 											+ interfaze + "\"", e);
 							errorsFound = true;
 						}
