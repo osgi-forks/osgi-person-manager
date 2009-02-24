@@ -9,3 +9,5 @@ Import-Package: com.siemens.ct.osgi.a4ds,
  org.junit;version="4.5.0"
 Bundle-ClassPath: lib/jdom.jar,
  .
+Service-Component: OSGI-INF/*
+ 
