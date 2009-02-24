@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Annotations for OSGi Declarative Services
+Bundle-SymbolicName: com.siemens.ct.osgi.a4ds;singleton:=true
+Bundle-Version: 0.1.0
+Bundle-Vendor: Siemens AG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.siemens.ct.osgi.a4ds
+Bundle-ClassPath: lib/jdom.jar,
+ .

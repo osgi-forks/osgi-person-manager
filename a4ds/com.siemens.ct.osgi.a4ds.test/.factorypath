@@ -1,0 +1,3 @@
+<factorypath>
+    <factorypathentry kind="PLUGIN" id="com.siemens.ct.osgi.a4ds" enabled="true" runInBatchMode="false"/>
+</factorypath>
