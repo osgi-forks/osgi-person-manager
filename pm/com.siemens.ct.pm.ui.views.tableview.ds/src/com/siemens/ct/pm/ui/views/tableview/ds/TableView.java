@@ -167,8 +167,10 @@ public class TableView implements IViewContribution, IPersonListener {
 
 	public synchronized void removePersonManager(IPersonManager personManager) {
 		logger.info("removePersonManager: " + personManager);
-		this.personManager = null;
-		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		if (personManager == this.personManager) {
+			this.personManager = null;
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		}
 	}
 
 	public synchronized void setPersonManager(IPersonManager personManager) {
