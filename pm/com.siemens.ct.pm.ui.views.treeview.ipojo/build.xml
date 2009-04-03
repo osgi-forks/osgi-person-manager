@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<project name="com.siemens.ct.pm.ui.views.treeview.ipojo" default="package" basedir=".">
+	
+	<property name="src.dir" value="src"/>
+	<property name="lib.dir" value="libs"/>
+	<property name="build.dir" value="bin"/>
+    <property name="output.dir" value="bin"/>
+    <property name="target.platform" value="../com.siemens.ct.pm.target/eclipse/plugins"/>
+	
+	<taskdef name="ipojo" classpath="lib/org.apache.felix.ipojo.ant-1.2.0.jar" 
+		classname="org.apache.felix.ipojo.task.IPojoTask"/>
+	
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<delete dir="${output.dir}"/>
+	</target>
+	
+	<target name="compile" depends="clean">
+	<mkdir dir="${output.dir}"/>
+		<mkdir dir="${build.dir}"/>
+
+		<javac   srcdir="${src.dir}"
+		         destdir="${build.dir}"
+		         debug="on"
+				classpath="lib/org.apache.felix.ipojo.annotations-1.2.0.jar;${target.platform}/slf4j-api-1.5.6.jar;../com.siemens.ct.pm.application/bin;../com.siemens.ct.pm.model/bin"
+		  />
+
+	</target>
+
+	<target name="package" depends="compile">
+		<jar file="${output.dir}/bundle.jar"
+			manifest="META-INF/MANIFEST.MF"
+		>
+		    <fileset dir="${output.dir}"/>
+		</jar>
+		
+		<ipojo
+				input="${output.dir}/bundle.jar"
+				metadata="metadata.xml"
+		/>
+	</target>
+	
+
+	<target name="unpackage" depends="package">
+		<echo message="Unpackage..."/>
+		<unjar overwrite="true" dest="${output.dir}" src="${output.dir}/bundle.jar"/>
+		<copy file="${output.dir}/META-INF/MANIFEST.mf" tofile="META-INF/MANIFEST.MF"></copy>
+		<delete file="${output.dir}/bundle.jar"/>
+	</target>
+
+</project>
