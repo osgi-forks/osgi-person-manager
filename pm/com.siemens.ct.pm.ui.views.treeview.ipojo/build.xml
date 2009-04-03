@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="com.siemens.ct.pm.ui.views.treeview.ipojo" default="package" basedir=".">
+<project name="com.siemens.ct.pm.ui.views.treeview.ipojo" default="unpackage" basedir=".">
 	
 	<property name="src.dir" value="src"/>
 	<property name="lib.dir" value="libs"/>
