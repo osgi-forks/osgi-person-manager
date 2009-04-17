@@ -73,9 +73,11 @@ Bundle-Name: TreeView iPOJO Plug-in
 Bundle-ManifestVersion: 2
 Created-By: 11.2-b01 (Sun Microsystems Inc.) & iPOJO & iPOJO & iPOJO &
   iPOJO & iPOJO
-Import-Package: org.osgi.service.log;version=1.3, org.apache.felix.ipo
- jo.architecture;version=1.2.0, org.apache.felix.ipojo;version=1.2.0, 
- org.osgi.service.cm;version=1.2
+Import-Package: org.apache.felix.ipojo;version="1.2.0",
+ org.apache.felix.ipojo.annotations;resolution:=optional,
+ org.apache.felix.ipojo.architecture;version="1.2.0",
+ org.osgi.service.cm;version="1.2",
+ org.osgi.service.log;version="1.3"
 Bundle-SymbolicName: com.siemens.ct.pm.ui.views.treeview.ipojo
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 
