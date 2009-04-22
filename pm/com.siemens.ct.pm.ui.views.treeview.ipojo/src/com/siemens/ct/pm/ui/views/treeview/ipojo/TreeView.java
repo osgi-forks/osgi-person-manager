@@ -54,7 +54,8 @@ public class TreeView implements IViewContribution, IPersonListener {
 	public TreeView() {
 		super();
 
-		System.out.println("iPOJO TreeView component constructor");
+		logger.info("iPOJO TreeView component constructor");
+
 		icon = new ImageIcon(this.getClass().getResource(
 				"/icons/folder_user.png"));
 		top = new DefaultMutableTreeNode("Persons");
