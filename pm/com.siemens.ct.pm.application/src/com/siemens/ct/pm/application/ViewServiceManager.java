@@ -42,42 +42,54 @@ public class ViewServiceManager {
 	}
 
 	public synchronized void setViewContribution(
-			IViewContribution viewContribution) {
+			final IViewContribution viewContribution) {
 		waitUntilInitialized();
-		logger.info("adding service: " + viewContribution);
-		JComponent view = viewContribution.getView();
-		SwingUtilities.updateComponentTreeUI(view);
-		positionMap.put(view, viewContribution.getPosition());
-		if (serviceCount == 0) {
-			viewContainer.remove(label);
-		}
-		int position = viewContribution.getPosition();
-		boolean isInserted = false;
-		for (int pos = 0; pos < viewContainer.getTabCount(); pos++) {
-			if (position <= positionMap.get(viewContainer.getComponentAt(pos))) {
-				viewContainer.insertTab(viewContribution.getName() + " ",
-						viewContribution.getIcon(), view, viewContribution
-								.getName(), pos);
-				isInserted = true;
-				break;
-			}
-		}
-		if (!isInserted) {
-			viewContainer.insertTab(viewContribution.getName() + " ",
-					viewContribution.getIcon(), view, viewContribution
-							.getName(), viewContainer.getTabCount());
-		}
+		Runnable uiUpdater = new Runnable() {
+			public void run() {
 
-		serviceCount += 1;
+				logger.info("adding service: " + viewContribution);
+				JComponent view = viewContribution.getView();
+				SwingUtilities.updateComponentTreeUI(view);
+				positionMap.put(view, viewContribution.getPosition());
+				if (serviceCount == 0) {
+					viewContainer.remove(label);
+				}
+				int position = viewContribution.getPosition();
+				boolean isInserted = false;
+				for (int pos = 0; pos < viewContainer.getTabCount(); pos++) {
+					if (position <= positionMap.get(viewContainer
+							.getComponentAt(pos))) {
+						viewContainer.insertTab(viewContribution.getName()
+								+ " ", viewContribution.getIcon(), view,
+								viewContribution.getName(), pos);
+						isInserted = true;
+						break;
+					}
+				}
+				if (!isInserted) {
+					viewContainer.insertTab(viewContribution.getName() + " ",
+							viewContribution.getIcon(), view, viewContribution
+									.getName(), viewContainer.getTabCount());
+				}
+
+				serviceCount += 1;
+			}
+		};
+		SwingUtilities.invokeLater(uiUpdater);
 	}
 
 	public synchronized void unsetViewContribution(
-			IViewContribution viewContribution) {
-		JComponent view = (viewContribution).getView();
-		viewContainer.remove(view);
-		positionMap.remove(view);
-		serviceCount -= 1;
-		checkServices();
+			final IViewContribution viewContribution) {
+		Runnable uiUpdater = new Runnable() {
+			public void run() {
+				JComponent view = (viewContribution).getView();
+				viewContainer.remove(view);
+				positionMap.remove(view);
+				serviceCount -= 1;
+				checkServices();
+			}
+		};
+		SwingUtilities.invokeLater(uiUpdater);
 	}
 
 	private void checkServices() {

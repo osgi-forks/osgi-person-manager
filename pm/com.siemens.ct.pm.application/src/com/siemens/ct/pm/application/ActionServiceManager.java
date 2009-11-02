@@ -22,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,33 +47,41 @@ public class ActionServiceManager {
 	}
 
 	public synchronized void setActionContribution(
-			IActionContribution actionContribution) {
+			final IActionContribution actionContribution) {
 		waitUntilInitialized();
-		logger.info("adding service: " + actionContribution);
+		Runnable uiUpdater = new Runnable() {
+			public void run() {
 
-		List<Action> actions = actionContribution.getActions();
+				logger.info("adding service: " + actionContribution);
 
-		if (toolBar.getComponentCount() > 0) {
-			toolBar.addSeparator();
-		}
+				List<Action> actions = actionContribution.getActions();
 
-		// Find actions menu
-		JMenu actionsMenu = getActionsMenu();
-		if (actionsMenu != null && actionsMenu.getItemCount() > 0) {
-			actionsMenu.addSeparator();
-		}
+				if (toolBar.getComponentCount() > 0) {
+					toolBar.addSeparator();
+				}
 
-		for (Action action : actions) {
-			JButton button = new JButton(action);
-			button.setToolTipText((String) action.getValue(Action.NAME));
-			toolBar.add(button);
+				// Find actions menu
+				JMenu actionsMenu = getActionsMenu();
+				if (actionsMenu != null && actionsMenu.getItemCount() > 0) {
+					actionsMenu.addSeparator();
+				}
 
-			if (actionsMenu != null) {
-				actionsMenu.add(action);
+				for (Action action : actions) {
+					JButton button = new JButton(action);
+					button
+							.setToolTipText((String) action
+									.getValue(Action.NAME));
+					toolBar.add(button);
+
+					if (actionsMenu != null) {
+						actionsMenu.add(action);
+					}
+				}
+				toolBar.revalidate();
+				menuBar.revalidate();
 			}
-		}
-		toolBar.revalidate();
-		menuBar.revalidate();
+		};
+		SwingUtilities.invokeLater(uiUpdater);
 	}
 
 	private JMenu getActionsMenu() {
@@ -89,53 +98,60 @@ public class ActionServiceManager {
 	}
 
 	public synchronized void unsetActionContribution(
-			IActionContribution actionContribution) {
-		List<Action> actions = actionContribution.getActions();
+			final IActionContribution actionContribution) {
+		Runnable uiUpdater = new Runnable() {
+			public void run() {
 
-		JMenu actionsMenu = getActionsMenu();
-		for (Action action : actions) {
-			Component[] components = toolBar.getComponents();
-			for (Component component : components) {
-				if (component instanceof JButton
-						&& action == ((JButton) component).getAction()) {
-					toolBar.remove(component);
-					break;
+				List<Action> actions = actionContribution.getActions();
+
+				JMenu actionsMenu = getActionsMenu();
+				for (Action action : actions) {
+					Component[] components = toolBar.getComponents();
+					for (Component component : components) {
+						if (component instanceof JButton
+								&& action == ((JButton) component).getAction()) {
+							toolBar.remove(component);
+							break;
+						}
+					}
+
+					components = actionsMenu.getMenuComponents();
+					for (Component component : components) {
+						if (component instanceof JMenuItem
+								&& action == ((JMenuItem) component)
+										.getAction()) {
+							actionsMenu.remove(component);
+							break;
+						}
+					}
 				}
-			}
 
-			components = actionsMenu.getMenuComponents();
-			for (Component component : components) {
-				if (component instanceof JMenuItem
-						&& action == ((JMenuItem) component).getAction()) {
-					actionsMenu.remove(component);
-					break;
+				// Cleanup toolbar separators
+				Component[] components = toolBar.getComponents();
+				for (int i = 0; i < components.length; i++) {
+					if (components[i] instanceof JToolBar.Separator
+							&& (i == 0 || i == components.length - 1 || (i < components.length - 1 && components[i + 1] instanceof JToolBar.Separator))) {
+						toolBar.remove(components[i]);
+					}
 				}
+
+				toolBar.revalidate();
+				toolBar.repaint();
+
+				// Cleanup menu separators
+				components = actionsMenu.getMenuComponents();
+				for (int i = 0; i < components.length; i++) {
+					if (components[i] instanceof JPopupMenu.Separator
+							&& (i == 0 || i == components.length - 1 || (i < components.length - 1 && components[i + 1] instanceof JPopupMenu.Separator))) {
+						actionsMenu.remove(components[i]);
+					}
+				}
+
+				toolBar.revalidate();
+				toolBar.repaint();
 			}
-		}
-
-		// Cleanup toolbar separators
-		Component[] components = toolBar.getComponents();
-		for (int i = 0; i < components.length; i++) {
-			if (components[i] instanceof JToolBar.Separator
-					&& (i == 0 || i == components.length - 1 || (i < components.length - 1 && components[i + 1] instanceof JToolBar.Separator))) {
-				toolBar.remove(components[i]);
-			}
-		}
-
-		toolBar.revalidate();
-		toolBar.repaint();
-
-		// Cleanup menu separators
-		components = actionsMenu.getMenuComponents();
-		for (int i = 0; i < components.length; i++) {
-			if (components[i] instanceof JPopupMenu.Separator
-					&& (i == 0 || i == components.length - 1 || (i < components.length - 1 && components[i + 1] instanceof JPopupMenu.Separator))) {
-				actionsMenu.remove(components[i]);
-			}
-		}
-
-		toolBar.revalidate();
-		toolBar.repaint();
+		};
+		SwingUtilities.invokeLater(uiUpdater);
 	}
 
 	public synchronized void initialize(JToolBar toolBar, JMenuBar menuBar) {

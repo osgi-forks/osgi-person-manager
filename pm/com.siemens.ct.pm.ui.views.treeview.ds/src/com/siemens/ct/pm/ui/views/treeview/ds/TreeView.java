@@ -91,11 +91,7 @@ public class TreeView implements IViewContribution, IPersonListener {
 				});
 			}
 		};
-		try {
-			SwingUtilities.invokeAndWait(uiCreator);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
+		SwingUtilities.invokeLater(uiCreator);
 	}
 
 	private void createNodes(DefaultMutableTreeNode top) {
@@ -150,7 +146,7 @@ public class TreeView implements IViewContribution, IPersonListener {
 		this.selectionService = selectionService;
 	}
 
-	public synchronized void removePersonManager(IPersonManager personManager) {
+	public void removePersonManager(IPersonManager personManager) {
 		logger.info("removePersonManager");
 		if (this.personManager == personManager) {
 			this.personManager = null;
@@ -159,13 +155,20 @@ public class TreeView implements IViewContribution, IPersonListener {
 		}
 	}
 
-	public synchronized void setPersonManager(IPersonManager personManager) {
-		logger.info("set personManager: " + personManager);
+	public void setPersonManager(final IPersonManager personManager) {
 		this.personManager = personManager;
-		top.removeAllChildren();
-		createNodes(top);
-		((DefaultTreeModel) tree.getModel()).reload(top);
-		expand(new TreePath(top));
+		Runnable uiCreator = new Runnable() {
+			public void run() {
+				logger.info("set personManager: " + personManager);
+				top.removeAllChildren();
+				createNodes(top);
+				((DefaultTreeModel) tree.getModel()).reload(top);
+				expand(new TreePath(top));
+			}
+		};
+
+		SwingUtilities.invokeLater(uiCreator);
+
 	}
 
 	@Override
