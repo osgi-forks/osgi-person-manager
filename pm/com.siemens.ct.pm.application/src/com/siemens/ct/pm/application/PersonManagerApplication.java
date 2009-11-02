@@ -13,26 +13,27 @@
 package com.siemens.ct.pm.application;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 
-import javax.swing.JButton;
+import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import org.jdesktop.application.Action;
-import org.jdesktop.application.SingleFrameApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PersonManagerApplication extends SingleFrameApplication {
+public class PersonManagerApplication {
 
+	private JFrame mainFrame;
 	private JMenuBar menuBar;
 	private JToolBar toolBar;
 	private JTabbedPane viewContainer;
@@ -40,68 +41,61 @@ public class PersonManagerApplication extends SingleFrameApplication {
 	private final Logger logger = LoggerFactory
 			.getLogger(PersonManagerApplication.class);
 
-	@Action
 	public void showAboutDialog() {
 		if (aboutDialog == null) {
-			JFrame mainFrame = getMainFrame();
 			aboutDialog = new AboutDialog(mainFrame);
 			aboutDialog.setLocationRelativeTo(mainFrame);
 		}
-		show(aboutDialog);
-	}
-
-	private javax.swing.Action getAction(String actionName) {
-		return getContext().getActionMap().get(actionName);
-	}
-
-	private JMenu createMenu(String menuName, String[] actionNames) {
-		JMenu menu = new JMenu();
-		menu.setName(menuName);
-		if (actionNames != null) {
-			for (String actionName : actionNames) {
-				if (actionName.equals("---")) {
-					menu.add(new JSeparator());
-				} else {
-					JMenuItem menuItem = new JMenuItem();
-					menuItem.setAction(getAction(actionName));
-					menu.add(menuItem);
-				}
-			}
-		}
-		return menu;
+		aboutDialog.setVisible(true);
 	}
 
 	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		String[] fileMenuActionNames = { "quit" };
-		menuBar.add(createMenu("fileMenu", fileMenuActionNames));
-		menuBar.add(createMenu("actionsMenu", null));
-		String[] helpMenuActionNames = { "showAboutDialog" };
-		menuBar.add(createMenu("helpMenu", helpMenuActionNames));
+		JMenu fileMenu = new JMenu("File");
+		fileMenu.setMnemonic('F');
+		JMenuItem exitItem = fileMenu.add(new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		exitItem.setText("Exit");
+		menuBar.add(fileMenu);
+
+		JMenu actionsMenu = new JMenu("Action");
+		actionsMenu.setName("actionsMenu");
+		actionsMenu.setMnemonic('A');
+		menuBar.add(actionsMenu);
+
+		// the help menu
+		JMenu helpMenu = new JMenu("Help");
+		helpMenu.setMnemonic('H');
+
+		JMenuItem aboutItem = helpMenu.add(new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showAboutDialog();
+			}
+		});
+		aboutItem.setText("About");
+		aboutItem.setMnemonic('A');
+		aboutItem.setAccelerator(KeyStroke.getKeyStroke('A',
+				java.awt.Event.CTRL_MASK));
+
+		menuBar.add(helpMenu);
+
 		return menuBar;
 	}
 
 	private JToolBar createToolBar() {
-		String[] toolbarActionNames = {};
 		toolBar = new JToolBar();
 		toolBar.setFloatable(false);
-		for (String actionName : toolbarActionNames) {
-			if (actionName.equals("---")) {
-				toolBar.addSeparator();
-			} else {
-				JButton button = new JButton();
-				button.setAction(getAction(actionName));
-				button.setText(null);
-				button.setFocusable(false);
-				toolBar.add(button);
-			}
-		}
 		return toolBar;
-
 	}
 
 	private JComponent createMainPanel() {
-
 		viewContainer = new JTabbedPane();
 
 		JPanel panel = new JPanel(new BorderLayout());
@@ -110,28 +104,34 @@ public class PersonManagerApplication extends SingleFrameApplication {
 		panel.setBorder(new EmptyBorder(0, 4, 4, 4));
 
 		return panel;
-
 	}
 
-	@Override
 	protected void startup() {
 		menuBar = createMenuBar();
-		getMainFrame().setJMenuBar(menuBar);
+		mainFrame.setJMenuBar(menuBar);
+
 		JComponent mainPanel = createMainPanel();
+		mainPanel.setVisible(true);
 		logger.info("Application UI skeleton initialized");
 
 		PersonManagerApplicationComponent.getActionServiceManager().initialize(
-				this, toolBar, menuBar);
+				toolBar, menuBar);
 		PersonManagerApplicationComponent.getViewServiceManager().initialize(
 				viewContainer);
 
-		show(mainPanel);
+		mainFrame.add(mainPanel);
+		mainFrame.setVisible(true);
 	}
 
-	/**
-	 * Runs after the startup has completed and the GUI is up and ready.
-	 */
-	@Override
-	protected void ready() {
+	public void launch() {
+		Runnable appStarter = new Runnable() {
+			public void run() {
+				mainFrame = new JFrame("PM Dynamic OSGi Demo");
+				mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				mainFrame.setSize(800, 600);
+				startup();
+			}
+		};
+		SwingUtilities.invokeLater(appStarter);
 	}
 }

@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -41,53 +42,63 @@ import com.siemens.ct.pm.model.IPersonManager;
 import com.siemens.ct.pm.model.event.PersonEvent;
 
 public class TreeView implements IViewContribution, IPersonListener {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private final ImageIcon icon;
-	private final JComponent view;
+	private ImageIcon icon;
+	private JComponent view;
 
 	private IPersonManager personManager;
 
 	private ISelectionService selectionService;
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private final JTree tree;
-	private final DefaultMutableTreeNode top;
+	private JTree tree;
+	private DefaultMutableTreeNode top;
 
 	public TreeView() {
-		super();
-		icon = new ImageIcon(this.getClass().getResource("/icons/folder.png"));
-		top = new DefaultMutableTreeNode("Persons");
+		Runnable uiCreator = new Runnable() {
+			public void run() {
+				icon = new ImageIcon(this.getClass().getResource(
+						"/icons/folder.png"));
+				top = new DefaultMutableTreeNode("Persons");
 
-		tree = new JTree(top);
-		view = new JScrollPane(tree);
-		view.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-				.createEmptyBorder(2, 2, 2, 2), BorderFactory
-				.createLineBorder(Color.lightGray)));
+				tree = new JTree(top);
+				view = new JScrollPane(tree);
+				view.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+						.createEmptyBorder(2, 2, 2, 2), BorderFactory
+						.createLineBorder(Color.lightGray)));
 
-		ImageIcon folderIcon = new ImageIcon(this.getClass().getResource(
-				"/icons/folder.png"));
-		ImageIcon leafIcon = new ImageIcon(this.getClass().getResource(
-				"/icons/user.png"));
-		if (leafIcon != null) {
-			DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-			renderer.setLeafIcon(leafIcon);
-			renderer.setOpenIcon(folderIcon);
-			renderer.setClosedIcon(folderIcon);
-			tree.setCellRenderer(renderer);
+				ImageIcon folderIcon = new ImageIcon(this.getClass()
+						.getResource("/icons/folder.png"));
+				ImageIcon leafIcon = new ImageIcon(this.getClass().getResource(
+						"/icons/user.png"));
+				if (leafIcon != null) {
+					DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
+					renderer.setLeafIcon(leafIcon);
+					renderer.setOpenIcon(folderIcon);
+					renderer.setClosedIcon(folderIcon);
+					tree.setCellRenderer(renderer);
+				}
+
+				tree.addTreeSelectionListener(new TreeSelectionListener() {
+					public void valueChanged(TreeSelectionEvent e) {
+						DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree
+								.getLastSelectedPathComponent();
+						if (node != null) {
+							Object object = node.getUserObject();
+							if (selectionService != null) {
+								selectionService.objectSelected(object);
+							}
+						}
+					}
+				});
+			}
+		};
+		try {
+			SwingUtilities.invokeAndWait(uiCreator);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
-			public void valueChanged(TreeSelectionEvent e) {
-				DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree
-						.getLastSelectedPathComponent();
-				if (node != null) {
-					Object object = node.getUserObject();
-					if (selectionService != null) {
-						selectionService.objectSelected(object);
-					}
-				}
-			}
-		});
 	}
 
 	private void createNodes(DefaultMutableTreeNode top) {

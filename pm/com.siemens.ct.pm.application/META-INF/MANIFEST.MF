@@ -5,7 +5,7 @@ Bundle-SymbolicName: com.siemens.ct.pm.application
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: SIEMENS AG
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.jdesktop.application,
+Import-Package: 
  org.osgi.framework;version="1.3.0",
  org.osgi.service.component;version="1.0.0",
  org.slf4j;version="1.5.0"
@@ -14,4 +14,6 @@ Export-Package: com.siemens.ct.pm.application,
 Service-Component: OSGI-INF/selectionService.xml, OSGI-INF/PersonManagerApplicationComponent.xml
 Bundle-Activator: com.siemens.ct.pm.application.Activator
 Require-Bundle: slf4j.api;bundle-version="1.5.6"
+Bundle-ClassPath: lib/substance.jar,
+ .
 

@@ -12,6 +12,8 @@
 
 package com.siemens.ct.pm.application;
 
+import javax.swing.SwingUtilities;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,13 +29,16 @@ public class PersonManagerApplicationComponent {
 
 	public PersonManagerApplicationComponent() {
 		logger.info("PersonManagerApplicationComponent created");
-		// this must happen before the 'setActionContribution' or
-		// 'setViewContribution'
-		// methods are called...
-		actionServiceManager = new ActionServiceManager();
-		viewServiceManager = new ViewServiceManager();
-		PersonManagerApplication.launch(PersonManagerApplication.class, null);
-		logger.info("Application launched asynchronously");
+		Runnable launcher = new Runnable() {
+			@Override
+			public void run() {
+				actionServiceManager = new ActionServiceManager();
+				viewServiceManager = new ViewServiceManager();
+				new PersonManagerApplication().launch();
+				logger.info("Application launched asynchronously");
+			}
+		};
+		SwingUtilities.invokeLater(launcher);
 	}
 
 	public static ActionServiceManager getActionServiceManager() {

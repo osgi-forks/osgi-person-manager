@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.swing.Action;
 
-import org.jdesktop.application.Application;
-
 import com.siemens.ct.pm.application.service.IActionContribution;
 import com.siemens.ct.pm.application.service.ISelectionListener;
 import com.siemens.ct.pm.model.IPerson;
@@ -28,7 +26,7 @@ public class ActionContribution implements IActionContribution,
 	}
 
 	@Override
-	public List<Action> getActions(Application application) {
+	public List<Action> getActions() {
 		return actions;
 	}
 

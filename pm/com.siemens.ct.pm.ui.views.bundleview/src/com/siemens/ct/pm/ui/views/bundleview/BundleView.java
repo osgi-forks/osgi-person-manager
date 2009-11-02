@@ -26,18 +26,23 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.siemens.ct.pm.application.service.IViewContribution;
 
 public class BundleView implements IViewContribution {
 
-	private final ImageIcon icon;
-	private final JComponent view;
-	private final JTable table;
+	private final Logger logger = LoggerFactory.getLogger(BundleView.class);
+
+	private ImageIcon icon;
+	private JComponent view;
+	private JTable table;
 	private final Bundle[] bundles;
 
 	@SuppressWarnings("serial")
@@ -145,6 +150,19 @@ public class BundleView implements IViewContribution {
 
 		bundles = Activator.getBundles();
 
+		Runnable uiCreator = new Runnable() {
+			public void run() {
+				createUI();
+			}
+		};
+		try {
+			SwingUtilities.invokeAndWait(uiCreator);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+	}
+
+	private void createUI() {
 		icon = new ImageIcon(this.getClass().getResource("/icons/bundle.png"));
 		table = new JTable(new TableModel());
 		table.setColumnSelectionAllowed(false);

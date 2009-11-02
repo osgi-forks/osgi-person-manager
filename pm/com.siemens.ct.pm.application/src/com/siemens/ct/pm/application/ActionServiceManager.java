@@ -23,7 +23,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 
-import org.jdesktop.application.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +32,6 @@ public class ActionServiceManager {
 
 	private JToolBar toolBar;
 	private JMenuBar menuBar;
-	private Application application;
 	private final Logger logger = LoggerFactory
 			.getLogger(ActionServiceManager.class);
 
@@ -52,7 +50,7 @@ public class ActionServiceManager {
 		waitUntilInitialized();
 		logger.info("adding service: " + actionContribution);
 
-		List<Action> actions = actionContribution.getActions(application);
+		List<Action> actions = actionContribution.getActions();
 
 		if (toolBar.getComponentCount() > 0) {
 			toolBar.addSeparator();
@@ -82,7 +80,7 @@ public class ActionServiceManager {
 		for (Component component : menus) {
 			if (component instanceof JMenu) {
 				JMenu menu = (JMenu) component;
-				if (menu.getName().equals("actionsMenu")) {
+				if ("actionsMenu".equals(menu.getName())) {
 					return menu;
 				}
 			}
@@ -92,7 +90,7 @@ public class ActionServiceManager {
 
 	public synchronized void unsetActionContribution(
 			IActionContribution actionContribution) {
-		List<Action> actions = actionContribution.getActions(application);
+		List<Action> actions = actionContribution.getActions();
 
 		JMenu actionsMenu = getActionsMenu();
 		for (Action action : actions) {
@@ -140,9 +138,7 @@ public class ActionServiceManager {
 		toolBar.repaint();
 	}
 
-	public synchronized void initialize(Application application,
-			JToolBar toolBar, JMenuBar menuBar) {
-		this.application = application;
+	public synchronized void initialize(JToolBar toolBar, JMenuBar menuBar) {
 		this.toolBar = toolBar;
 		this.menuBar = menuBar;
 		this.isInitialized = true;

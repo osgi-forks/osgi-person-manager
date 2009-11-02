@@ -21,6 +21,7 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -37,11 +38,11 @@ import com.siemens.ct.pm.model.event.PersonEvent;
 
 public class TableView implements IViewContribution, IPersonListener {
 
-	private final ImageIcon icon;
-	private final JComponent view;
+	private ImageIcon icon;
+	private JComponent view;
 	private IPersonManager personManager;
 	private ISelectionService selectionService;
-	private final JTable table;
+	private JTable table;
 	private final Logger logger = LoggerFactory.getLogger(TableView.class);
 
 	@SuppressWarnings("serial")
@@ -101,38 +102,50 @@ public class TableView implements IViewContribution, IPersonListener {
 	}
 
 	public TableView() {
-		super();
-		icon = new ImageIcon(this.getClass().getResource("/icons/table.png"));
-		table = new JTable(new TableModel());
+		Runnable uiCreator = new Runnable() {
+			public void run() {
+				icon = new ImageIcon(this.getClass().getResource(
+						"/icons/table.png"));
+				table = new JTable(new TableModel());
 
-		table.getColumnModel().getColumn(0).setPreferredWidth(100);
-		table.getColumnModel().getColumn(0).setMaxWidth(100);
-		table.getColumnModel().getColumn(1).setPreferredWidth(100);
-		table.getColumnModel().getColumn(1).setMaxWidth(100);
+				table.getColumnModel().getColumn(0).setPreferredWidth(100);
+				table.getColumnModel().getColumn(0).setMaxWidth(100);
+				table.getColumnModel().getColumn(1).setPreferredWidth(100);
+				table.getColumnModel().getColumn(1).setMaxWidth(100);
 
-		table.setColumnSelectionAllowed(false);
-		table.setRowSelectionAllowed(true);
-		table.getSelectionModel().setSelectionMode(
-				ListSelectionModel.SINGLE_SELECTION);
-		table.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener() {
+				table.setColumnSelectionAllowed(false);
+				table.setRowSelectionAllowed(true);
+				table.getSelectionModel().setSelectionMode(
+						ListSelectionModel.SINGLE_SELECTION);
+				table.getSelectionModel().addListSelectionListener(
+						new ListSelectionListener() {
 
-					@Override
-					public void valueChanged(ListSelectionEvent e) {
-						if (e.getValueIsAdjusting()
-								&& table.getSelectedRow() != -1) {
-							IPerson selectedPerson = personManager.getPersons()
-									.get(table.getSelectedRow());
-							selectionService.objectSelected(selectedPerson);
-						}
-					}
+							@Override
+							public void valueChanged(ListSelectionEvent e) {
+								if (e.getValueIsAdjusting()
+										&& table.getSelectedRow() != -1) {
+									IPerson selectedPerson = personManager
+											.getPersons().get(
+													table.getSelectedRow());
+									selectionService
+											.objectSelected(selectedPerson);
+								}
+							}
 
-				});
+						});
 
-		view = new JScrollPane(table);
-		view.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-				.createEmptyBorder(2, 2, 2, 2), BorderFactory
-				.createLineBorder(Color.lightGray)));
+				view = new JScrollPane(table);
+				view.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+						.createEmptyBorder(2, 2, 2, 2), BorderFactory
+						.createLineBorder(Color.lightGray)));
+			}
+		};
+		try {
+			SwingUtilities.invokeAndWait(uiCreator);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+
 	}
 
 	@Override

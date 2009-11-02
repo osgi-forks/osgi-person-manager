@@ -3,11 +3,8 @@ package com.siemens.ct.pm.ui.actions.vcard;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jdesktop.application.Action;
-import org.jdesktop.application.Application;
-import org.jdesktop.application.ApplicationActionMap;
-import org.jdesktop.application.ApplicationContext;
-import org.jdesktop.application.ResourceMap;
+import javax.xml.ws.Action;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,19 +31,14 @@ public class Actions implements IActionContribution {
 	}
 
 	@Override
-	public List<javax.swing.Action> getActions(Application application) {
+	public List<javax.swing.Action> getActions() {
 		if (actions == null) {
 			actions = new ArrayList<javax.swing.Action>();
 
-			ApplicationContext context = application.getContext();
-			ResourceMap resourceMap = context.getResourceMap(this.getClass());
-			ApplicationActionMap applicationActionMap = new ApplicationActionMap(
-					context, this.getClass(), this, resourceMap);
-			for (Object key : applicationActionMap.allKeys()) {
-				javax.swing.Action action = applicationActionMap.get(key
-						.toString());
-				actions.add(action);
-			}
+			actions.add(new AddVCardAction());
+			actions.add(new EditVCardAction());
+			actions.add(new RemoveVCardAction());
+
 		}
 		return actions;
 	}
