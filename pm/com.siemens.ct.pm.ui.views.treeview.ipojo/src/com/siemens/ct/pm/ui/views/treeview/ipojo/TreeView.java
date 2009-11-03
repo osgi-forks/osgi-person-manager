@@ -93,11 +93,7 @@ public class TreeView implements IViewContribution, IPersonListener {
 				});
 			}
 		};
-		try {
-			SwingUtilities.invokeAndWait(uiCreator);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
+		SwingUtilities.invokeLater(uiCreator);
 	}
 
 	private void createNodes(DefaultMutableTreeNode top) {
@@ -165,14 +161,6 @@ public class TreeView implements IViewContribution, IPersonListener {
 		this.personManager = personManager;
 		createNodes(top);
 		expand(new TreePath(top));
-
-		// org.apache.log4j.Logger mylogger = org.apache.log4j.Logger
-		// .getLogger(TreeView.class);
-		// Enumeration appenders = mylogger.getRootLogger().getAllAppenders();
-		// while (appenders.hasMoreElements()) {
-		// Appender appender = (Appender) appenders.nextElement();
-		// System.out.println(appender.getName());
-		// }
 	}
 
 	@Override

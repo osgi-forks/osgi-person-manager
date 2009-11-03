@@ -156,10 +156,11 @@ public class TreeView implements IViewContribution, IPersonListener {
 	}
 
 	public void setPersonManager(final IPersonManager personManager) {
-		this.personManager = personManager;
+		final TreeView treeView = this;
 		Runnable uiCreator = new Runnable() {
 			public void run() {
 				logger.info("set personManager: " + personManager);
+				treeView.personManager = personManager;
 				top.removeAllChildren();
 				createNodes(top);
 				((DefaultTreeModel) tree.getModel()).reload(top);

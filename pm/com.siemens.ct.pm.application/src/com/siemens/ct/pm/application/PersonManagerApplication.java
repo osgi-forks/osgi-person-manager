@@ -14,18 +14,23 @@ package com.siemens.ct.pm.application;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.AbstractAction;
+import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import org.slf4j.Logger;
@@ -67,6 +72,62 @@ public class PersonManagerApplication {
 		actionsMenu.setName("actionsMenu");
 		actionsMenu.setMnemonic('A');
 		menuBar.add(actionsMenu);
+
+		// Menu for the look and feels (lnfs).
+		UIManager.LookAndFeelInfo[] lnfs = UIManager.getInstalledLookAndFeels();
+
+		ButtonGroup lnfGroup = new ButtonGroup();
+		JMenu lnfMenu = new JMenu("Look&Feel");
+		lnfMenu.setMnemonic('L');
+
+		menuBar.add(lnfMenu);
+
+		for (int i = 0; i < lnfs.length; i++) {
+			if (!lnfs[i].getName().equals("CDE/Motif")) {
+				JRadioButtonMenuItem rbmi = new JRadioButtonMenuItem(lnfs[i]
+						.getName());
+				lnfMenu.add(rbmi);
+
+				// preselect the current Look & feel
+				rbmi.setSelected(UIManager.getLookAndFeel().getName().equals(
+						lnfs[i].getName()));
+
+				// store lool & feel info as client property
+				rbmi.putClientProperty("lnf name", lnfs[i]);
+
+				// create and add the item listener
+				rbmi.addItemListener(
+				// inlining
+						new ItemListener() {
+							public void itemStateChanged(ItemEvent ie) {
+								JRadioButtonMenuItem rbmi2 = (JRadioButtonMenuItem) ie
+										.getSource();
+
+								if (rbmi2.isSelected()) {
+									// get the stored look & feel info
+									UIManager.LookAndFeelInfo info = (UIManager.LookAndFeelInfo) rbmi2
+											.getClientProperty("lnf name");
+
+									try {
+										UIManager.setLookAndFeel(info
+												.getClassName());
+
+										// update the complete application's
+										// look & feel
+										SwingUtilities
+												.updateComponentTreeUI(mainFrame);
+									} catch (Exception e) {
+										e.printStackTrace();
+
+										System.err.println("Unable to set UI "
+												+ e.getMessage());
+									}
+								}
+							}
+						});
+				lnfGroup.add(rbmi);
+			}
+		}
 
 		// the help menu
 		JMenu helpMenu = new JMenu("Help");

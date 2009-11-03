@@ -19,32 +19,10 @@ public class Activator implements BundleActivator {
 
 		String laf = null;
 		try {
-			// try {
-			// Runnable lnfSetter = new Runnable() {
-			// public void run() {
-			// // SubstanceLookAndFeel
-			// // .setSkin("org.jvnet.substance.skin.RavenGraphiteGlassSkin");
-			// try {
-			// UIManager
-			// .setLookAndFeel(new SubstanceMagmaLookAndFeel());
-			// } catch (Exception e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
-			// }
-			// };
-			// SwingUtilities.invokeAndWait(lnfSetter);
-			//
-			// } catch (Throwable t) {
-			// }
-
-			if (laf == null) {
-				for (LookAndFeelInfo info : UIManager
-						.getInstalledLookAndFeels()) {
-					if ("Nimbus".equals(info.getName())) {
-						laf = info.getClassName();
-						break;
-					}
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					laf = info.getClassName();
+					break;
 				}
 			}
 			if (laf == null) {
@@ -53,7 +31,6 @@ public class Activator implements BundleActivator {
 			} else {
 				UIManager.setLookAndFeel(laf);
 			}
-
 		} catch (Exception e) {
 			logger.warn(e.getMessage());
 		}

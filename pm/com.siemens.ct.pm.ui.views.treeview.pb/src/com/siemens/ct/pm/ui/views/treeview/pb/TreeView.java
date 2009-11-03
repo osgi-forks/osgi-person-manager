@@ -93,12 +93,7 @@ public class TreeView implements IViewContribution, IPersonListener {
 				});
 			}
 		};
-		try {
-			SwingUtilities.invokeAndWait(uiCreator);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-
+		SwingUtilities.invokeLater(uiCreator);
 	}
 
 	private void createNodes(DefaultMutableTreeNode top) {
