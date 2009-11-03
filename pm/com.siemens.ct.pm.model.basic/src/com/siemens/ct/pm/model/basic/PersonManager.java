@@ -44,7 +44,6 @@ public class PersonManager implements IPersonManager {
 		persons.add(new Person("Frank", "Buschmann", "Siemens AG"));
 		persons.add(new Person("Michael", "Stal", "Siemens AG"));
 		persons.add(new Person("Alexander", "Thurow", "Weigle Wilczek GmbH"));
-		persons.add(new Person("Ilya", "Shinkarenko", "Weigle Wilczek GmbH"));
 		persons.add(new Person("Matthias", "Lübken", "akquinet it-agile GmbH"));
 		persons.add(new Person("Henning", "Wolf", "akquinet it-agile GmbH"));
 
