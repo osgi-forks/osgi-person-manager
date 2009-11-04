@@ -35,7 +35,7 @@ import com.siemens.ct.pm.model.IPersonManager;
 
 public class Activator implements BundleActivator {
 
-	private TreeView treeView;
+	private TreeViewPeaberry treeView;
 	private List<IPersonManager> personManagers;
 
 	@Inject
@@ -49,7 +49,7 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext context) throws Exception {
 		personManagers = new ArrayList<IPersonManager>();
-		treeView = new TreeView();
+		treeView = new TreeViewPeaberry();
 
 		Injector inj = createInjector(osgiModule(context),
 				new AbstractModule() {

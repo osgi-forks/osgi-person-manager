@@ -1,5 +1,5 @@
 <ipojo>
-	<component classname="com.siemens.ct.pm.ui.views.treeview.ipojo.TreeView"
+	<component classname="com.siemens.ct.pm.ui.views.treeview.ipojo.TreeViewIPOJO"
 		name="TreeView">
 		<requires>
             <callback type="bind" method="setPersonManager" />

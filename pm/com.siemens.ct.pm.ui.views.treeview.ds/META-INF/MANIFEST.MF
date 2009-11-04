@@ -8,6 +8,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: com.siemens.ct.pm.application.service,
  com.siemens.ct.pm.model,
  com.siemens.ct.pm.model.event,
+ com.siemens.ct.pm.ui.views.treeview,
  org.slf4j;version="1.5.0"
 Export-Package: com.siemens.ct.pm.ui.views.treeview.ds
 Service-Component: OSGI-INF/treeView.xml

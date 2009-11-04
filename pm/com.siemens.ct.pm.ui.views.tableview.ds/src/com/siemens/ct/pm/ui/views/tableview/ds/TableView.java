@@ -178,18 +178,37 @@ public class TableView implements IViewContribution, IPersonListener {
 		this.selectionService = selectionService;
 	}
 
-	public synchronized void removePersonManager(IPersonManager personManager) {
-		logger.info("removePersonManager: " + personManager);
-		if (personManager == this.personManager) {
-			this.personManager = null;
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-		}
+	public void removePersonManager(final IPersonManager personManager) {
+
+		final TableView tableView = this;
+		Runnable uiCreator = new Runnable() {
+			public void run() {
+				logger.info("removePersonManager: " + personManager);
+				if (personManager == tableView.personManager) {
+					tableView.personManager = null;
+					((AbstractTableModel) table.getModel())
+							.fireTableDataChanged();
+				}
+			}
+		};
+
+		SwingUtilities.invokeLater(uiCreator);
 	}
 
-	public synchronized void setPersonManager(IPersonManager personManager) {
-		logger.info("set personManager: " + personManager);
-		this.personManager = personManager;
-		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+	public void setPersonManager(final IPersonManager personManager) {
+		final TableView tableView = this;
+		Runnable uiCreator = new Runnable() {
+			public void run() {
+				logger.info("setPersonManager: " + personManager);
+				if (personManager == tableView.personManager) {
+					tableView.personManager = null;
+					((AbstractTableModel) table.getModel())
+							.fireTableDataChanged();
+				}
+			}
+		};
+
+		SwingUtilities.invokeLater(uiCreator);
 	}
 
 	@Override

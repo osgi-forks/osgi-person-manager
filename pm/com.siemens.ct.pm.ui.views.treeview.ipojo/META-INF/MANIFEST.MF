@@ -2,129 +2,48 @@ Manifest-Version: 1.0
 Require-Bundle: com.siemens.ct.pm.model;bundle-version="1.0.0",com.sie
  mens.ct.pm.application;bundle-version="1.0.0",slf4j.api;bundle-versio
  n="1.5.6"
-Bundle-Vendor: Siemens AG
 iPOJO-Components: component { $name="TreeView" $classname="com.siemens
- .ct.pm.ui.views.treeview.ipojo.TreeView" provides { }manipulation { f
- ield { $name="icon" $type="javax.swing.ImageIcon" }field { $name="tre
- e" $type="javax.swing.JTree" }field { $name="selectionService" $type=
- "com.siemens.ct.pm.application.service.ISelectionService" }field { $n
- ame="logger" $type="org.slf4j.Logger" }field { $name="view" $type="ja
- vax.swing.JComponent" }field { $name="personManager" $type="com.sieme
- ns.ct.pm.model.IPersonManager" }field { $name="top" $type="javax.swin
- g.tree.DefaultMutableTreeNode" }method { $name="$init" }method { $arg
- uments="{javax.swing.tree.DefaultMutableTreeNode}" $name="createNodes
- " }method { $name="getIcon" $return="javax.swing.Icon" }method { $nam
- e="getName" $return="java.lang.String" }method { $name="getView" $ret
- urn="javax.swing.JComponent" }method { $name="getPosition" $return="i
- nt" }method { $arguments="{com.siemens.ct.pm.application.service.ISel
- ectionService}" $name="removeSelectionService" }method { $arguments="
- {com.siemens.ct.pm.application.service.ISelectionService}" $name="set
- SelectionService" }method { $arguments="{com.siemens.ct.pm.model.IPer
- sonManager}" $name="removePersonManager" }method { $arguments="{com.s
- iemens.ct.pm.model.IPersonManager}" $name="setPersonManager" }method 
- { $arguments="{com.siemens.ct.pm.model.event.PersonEvent}" $name="han
- dleEvent" }method { $arguments="{java.lang.Object}" $name="searchNode
- " $return="javax.swing.tree.DefaultMutableTreeNode" }method { $argume
- nts="{javax.swing.tree.TreePath}" $name="expand" }method { $arguments
- ="{com.siemens.ct.pm.ui.views.treeview.ipojo.TreeView,javax.swing.Ima
- geIcon}" $name="access$002" $return="javax.swing.ImageIcon" }method {
-  $arguments="{com.siemens.ct.pm.ui.views.treeview.ipojo.TreeView,java
- x.swing.tree.DefaultMutableTreeNode}" $name="access$102" $return="jav
- ax.swing.tree.DefaultMutableTreeNode" }method { $arguments="{com.siem
- ens.ct.pm.ui.views.treeview.ipojo.TreeView,javax.swing.JTree}" $name=
- "access$202" $return="javax.swing.JTree" }method { $arguments="{com.s
- iemens.ct.pm.ui.views.treeview.ipojo.TreeView}" $name="access$100" $r
- eturn="javax.swing.tree.DefaultMutableTreeNode" }method { $arguments=
- "{com.siemens.ct.pm.ui.views.treeview.ipojo.TreeView,javax.swing.JCom
- ponent}" $name="access$302" $return="javax.swing.JComponent" }method 
- { $arguments="{com.siemens.ct.pm.ui.views.treeview.ipojo.TreeView}" $
- name="access$200" $return="javax.swing.JTree" }method { $arguments="{
- com.siemens.ct.pm.ui.views.treeview.ipojo.TreeView}" $name="access$30
- 0" $return="javax.swing.JComponent" }method { $arguments="{com.siemen
- s.ct.pm.ui.views.treeview.ipojo.TreeView}" $name="access$400" $return
- ="com.siemens.ct.pm.application.service.ISelectionService" }method { 
- $arguments="{com.siemens.ct.pm.ui.views.treeview.ipojo.TreeView}" $na
- me="access$500" $return="org.slf4j.Logger" }method { $arguments="{com
- .siemens.ct.pm.ui.views.treeview.ipojo.TreeView}" $name="access$600" 
- $return="com.siemens.ct.pm.model.IPersonManager" }method { $arguments
- ="{com.siemens.ct.pm.ui.views.treeview.ipojo.TreeView,com.siemens.ct.
- pm.model.IPersonManager}" $name="access$602" $return="com.siemens.ct.
- pm.model.IPersonManager" }method { $arguments="{com.siemens.ct.pm.ui.
- views.treeview.ipojo.TreeView,javax.swing.tree.DefaultMutableTreeNode
- }" $name="access$700" }method { $arguments="{com.siemens.ct.pm.ui.vie
- ws.treeview.ipojo.TreeView,javax.swing.tree.TreePath}" $name="access$
- 800" }interface { $name="com.siemens.ct.pm.application.service.IViewC
- ontribution" }interface { $name="com.siemens.ct.pm.model.IPersonListe
- ner" }}requires { callback { $method="setPersonManager" $type="bind" 
- }callback { $method="removePersonManager" $type="unbind" }}}instance 
- { $component="TreeView" }instance { $component="AnnotatedTreeView" }c
- omponent { $name="AnnotatedTreeView" $classname="com.siemens.ct.pm.ui
- .views.treeview.ipojo.AnnotatedTreeView" $public="true" provides { }m
- anipulation { field { $name="icon" $type="javax.swing.ImageIcon" }fie
- ld { $name="tree" $type="javax.swing.JTree" }field { $name="selection
- Service" $type="com.siemens.ct.pm.application.service.ISelectionServi
- ce" }field { $name="logger" $type="org.slf4j.Logger" }field { $name="
- view" $type="javax.swing.JComponent" }field { $name="personManager" $
- type="com.siemens.ct.pm.model.IPersonManager" }field { $name="top" $t
- ype="javax.swing.tree.DefaultMutableTreeNode" }method { $name="$init"
-  }method { $arguments="{javax.swing.tree.DefaultMutableTreeNode}" $na
- me="createNodes" }method { $name="getIcon" $return="javax.swing.Icon"
-  }method { $name="getName" $return="java.lang.String" }method { $name
- ="getView" $return="javax.swing.JComponent" }method { $name="getPosit
- ion" $return="int" }method { $arguments="{com.siemens.ct.pm.applicati
- on.service.ISelectionService}" $name="removeSelectionService" }method
-  { $arguments="{com.siemens.ct.pm.application.service.ISelectionServi
- ce}" $name="setSelectionService" }method { $arguments="{com.siemens.c
- t.pm.model.IPersonManager}" $name="unbindPersonManager" }method { $ar
- guments="{com.siemens.ct.pm.model.IPersonManager}" $name="bindPersonM
- anager" }method { $arguments="{com.siemens.ct.pm.model.event.PersonEv
- ent}" $name="handleEvent" }method { $arguments="{java.lang.Object}" $
- name="searchNode" $return="javax.swing.tree.DefaultMutableTreeNode" }
- method { $arguments="{javax.swing.tree.TreePath}" $name="expand" }met
- hod { $arguments="{com.siemens.ct.pm.ui.views.treeview.ipojo.Annotate
- dTreeView,javax.swing.ImageIcon}" $name="access$002" $return="javax.s
- wing.ImageIcon" }method { $arguments="{com.siemens.ct.pm.ui.views.tre
- eview.ipojo.AnnotatedTreeView,javax.swing.tree.DefaultMutableTreeNode
- }" $name="access$102" $return="javax.swing.tree.DefaultMutableTreeNod
- e" }method { $arguments="{com.siemens.ct.pm.ui.views.treeview.ipojo.A
- nnotatedTreeView,javax.swing.JTree}" $name="access$202" $return="java
- x.swing.JTree" }method { $arguments="{com.siemens.ct.pm.ui.views.tree
- view.ipojo.AnnotatedTreeView}" $name="access$100" $return="javax.swin
- g.tree.DefaultMutableTreeNode" }method { $arguments="{com.siemens.ct.
- pm.ui.views.treeview.ipojo.AnnotatedTreeView,javax.swing.JComponent}"
-  $name="access$302" $return="javax.swing.JComponent" }method { $argum
- ents="{com.siemens.ct.pm.ui.views.treeview.ipojo.AnnotatedTreeView}" 
- $name="access$200" $return="javax.swing.JTree" }method { $arguments="
- {com.siemens.ct.pm.ui.views.treeview.ipojo.AnnotatedTreeView}" $name=
- "access$300" $return="javax.swing.JComponent" }method { $arguments="{
- com.siemens.ct.pm.ui.views.treeview.ipojo.AnnotatedTreeView}" $name="
- access$400" $return="com.siemens.ct.pm.application.service.ISelection
- Service" }method { $arguments="{com.siemens.ct.pm.ui.views.treeview.i
- pojo.AnnotatedTreeView}" $name="access$500" $return="org.slf4j.Logger
- " }method { $arguments="{com.siemens.ct.pm.ui.views.treeview.ipojo.An
- notatedTreeView}" $name="access$600" $return="com.siemens.ct.pm.model
- .IPersonManager" }method { $arguments="{com.siemens.ct.pm.ui.views.tr
- eeview.ipojo.AnnotatedTreeView,com.siemens.ct.pm.model.IPersonManager
- }" $name="access$602" $return="com.siemens.ct.pm.model.IPersonManager
- " }method { $arguments="{com.siemens.ct.pm.ui.views.treeview.ipojo.An
- notatedTreeView,javax.swing.tree.DefaultMutableTreeNode}" $name="acce
- ss$700" }method { $arguments="{com.siemens.ct.pm.ui.views.treeview.ip
- ojo.AnnotatedTreeView,javax.swing.tree.TreePath}" $name="access$800" 
- }interface { $name="com.siemens.ct.pm.application.service.IViewContri
- bution" }interface { $name="com.siemens.ct.pm.model.IPersonListener" 
- }}requires { $id="PersonManager" callback { $method="unbindPersonMana
- ger" $type="unbind" }callback { $method="bindPersonManager" $type="bi
- nd" }}}
+ .ct.pm.ui.views.treeview.ipojo.TreeViewIPOJO" provides { }manipulatio
+ n { $super="com.siemens.ct.pm.ui.views.treeview.TreeView" method { $n
+ ame="$init" }method { $name="getName" $return="java.lang.String" }met
+ hod { $name="getPosition" $return="int" }method { $arguments="{com.si
+ emens.ct.pm.application.service.ISelectionService}" $name="removeSele
+ ctionService" }method { $arguments="{com.siemens.ct.pm.application.se
+ rvice.ISelectionService}" $name="setSelectionService" }method { $argu
+ ments="{com.siemens.ct.pm.model.IPersonManager}" $name="removePersonM
+ anager" }method { $arguments="{com.siemens.ct.pm.model.IPersonManager
+ }" $name="setPersonManager" }interface { $name="com.siemens.ct.pm.app
+ lication.service.IViewContribution" }interface { $name="com.siemens.c
+ t.pm.model.IPersonListener" }}requires { callback { $method="setPerso
+ nManager" $type="bind" }callback { $method="removePersonManager" $typ
+ e="unbind" }}}instance { $component="TreeView" }instance { $component
+ ="AnnotatedTreeView" }component { $name="AnnotatedTreeViewIPOJO" $cla
+ ssname="com.siemens.ct.pm.ui.views.treeview.ipojo.AnnotatedTreeViewIP
+ OJO" $public="true" provides { }manipulation { $super="com.siemens.ct
+ .pm.ui.views.treeview.TreeView" method { $name="$init" }method { $nam
+ e="getName" $return="java.lang.String" }method { $name="getPosition" 
+ $return="int" }method { $arguments="{com.siemens.ct.pm.application.se
+ rvice.ISelectionService}" $name="removeSelectionService" }method { $a
+ rguments="{com.siemens.ct.pm.application.service.ISelectionService}" 
+ $name="setSelectionService" }method { $arguments="{com.siemens.ct.pm.
+ model.IPersonManager}" $name="unbindPersonManager" }method { $argumen
+ ts="{com.siemens.ct.pm.model.IPersonManager}" $name="bindPersonManage
+ r" }interface { $name="com.siemens.ct.pm.application.service.IViewCon
+ tribution" }interface { $name="com.siemens.ct.pm.model.IPersonListene
+ r" }}requires { $id="PersonManager" callback { $method="unbindPersonM
+ anager" $type="unbind" }callback { $method="bindPersonManager" $type=
+ "bind" }}}
+Bundle-Vendor: Siemens AG
 Ant-Version: Apache Ant 1.7.1
 Bundle-Version: 1.0.0.qualifier
 Bundle-Name: TreeView iPOJO Plug-in
 Bundle-ManifestVersion: 2
 Created-By: 11.2-b01 (Sun Microsystems Inc.) & iPOJO & iPOJO & iPOJO &
   iPOJO & iPOJO & iPOJO & iPOJO
-Import-Package: org.osgi.service.log;version=1.3, org.apache.felix.ipo
- jo.architecture;version=1.4.0, org.apache.felix.ipojo;version=1.4.0, 
- org.apache.felix.ipojo.annotations;resolution:=optional, org.osgi.ser
- vice.cm;version=1.2
 Bundle-SymbolicName: com.siemens.ct.pm.ui.views.treeview.ipojo
+Import-Package: org.osgi.service.log;version=1.3, com.siemens.ct.pm.ui
+ .views.treeview, org.apache.felix.ipojo.architecture;version=1.4.0, o
+ rg.apache.felix.ipojo;version=1.4.0, org.osgi.service.cm;version=1.2,
+  org.apache.felix.ipojo.annotations;resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 
