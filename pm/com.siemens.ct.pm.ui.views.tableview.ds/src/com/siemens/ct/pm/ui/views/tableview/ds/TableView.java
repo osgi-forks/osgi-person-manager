@@ -140,12 +140,7 @@ public class TableView implements IViewContribution, IPersonListener {
 						.createLineBorder(Color.lightGray)));
 			}
 		};
-		try {
-			SwingUtilities.invokeAndWait(uiCreator);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-
+		SwingUtilities.invokeLater(uiCreator);
 	}
 
 	@Override
