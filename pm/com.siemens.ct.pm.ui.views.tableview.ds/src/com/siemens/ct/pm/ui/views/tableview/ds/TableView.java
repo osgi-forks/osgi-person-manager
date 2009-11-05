@@ -195,11 +195,8 @@ public class TableView implements IViewContribution, IPersonListener {
 		Runnable uiCreator = new Runnable() {
 			public void run() {
 				logger.info("setPersonManager: " + personManager);
-				if (personManager == tableView.personManager) {
-					tableView.personManager = null;
-					((AbstractTableModel) table.getModel())
-							.fireTableDataChanged();
-				}
+				tableView.personManager = personManager;
+				((AbstractTableModel) table.getModel()).fireTableDataChanged();
 			}
 		};
 
