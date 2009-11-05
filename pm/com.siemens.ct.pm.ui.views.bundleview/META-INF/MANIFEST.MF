@@ -8,8 +8,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: com.siemens.ct.pm.application.service,
  com.siemens.ct.pm.model,
  com.siemens.ct.pm.model.event,
- org.osgi.framework;version="1.4.0"
+ org.osgi.framework;version="1.4.0",
+ org.slf4j;version="1.5.6"
 Export-Package: com.siemens.ct.pm.ui.views.bundleview
 Service-Component: OSGI-INF/bundleView.xml
 Bundle-Activator: com.siemens.ct.pm.ui.views.bundleview.Activator
-Require-Bundle: slf4j.api;bundle-version="1.5.6"
