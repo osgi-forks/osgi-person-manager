@@ -54,6 +54,7 @@ public class PersonManagerApplication {
 		aboutDialog.setVisible(true);
 	}
 
+	@SuppressWarnings("serial")
 	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
