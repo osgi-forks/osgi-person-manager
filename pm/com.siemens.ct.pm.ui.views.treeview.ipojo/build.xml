@@ -23,7 +23,7 @@
 		<javac  srcdir="${src.dir}"
 		         destdir="${build.dir}"
 		         debug="on"
-				classpath="lib/org.apache.felix.ipojo.annotations-1.4.0.jar;${target.platform}/slf4j-api-1.5.6.jar;../com.siemens.ct.pm.application/bin;../com.siemens.ct.pm.model/bin;../com.siemens.ct.pm.ui.views.treeview/bin"
+				classpath="lib/org.apache.felix.ipojo.annotations-1.4.0.jar;${target.platform}/com.springsource.slf4j.api-1.5.6.jar;../com.siemens.ct.pm.application/bin;../com.siemens.ct.pm.model/bin;../com.siemens.ct.pm.ui.views.treeview/bin"
 		  />
 
 	</target>
