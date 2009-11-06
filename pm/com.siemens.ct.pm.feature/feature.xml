@@ -39,12 +39,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.siemens.ct.pm.lnf.substance"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="com.siemens.ct.pm.log4j"
          download-size="0"
          install-size="0"
