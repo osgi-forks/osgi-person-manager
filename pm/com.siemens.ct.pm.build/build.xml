@@ -93,7 +93,7 @@
 
 	<target name="buildFromSvn" depends="clean,fetchAllProjectsFromSvn,pde-build" />
 
-	<taskdef name="ipojo" classpath="./ipojo/org.apache.felix.ipojo.ant-1.2.0.jar" classname="org.apache.felix.ipojo.task.IPojoTask" />
+	<taskdef name="ipojo" classpath="./ipojo/org.apache.felix.ipojo.ant-1.4.2.jar" classname="org.apache.felix.ipojo.task.IPojoTask" />
 
 	<target name="deployToWebServer">
 		<property file="${buildDirectory}/product.version" />
