@@ -1,12 +1,12 @@
 <ipojo>
 	<component classname="com.siemens.ct.pm.ui.views.treeview.ipojo.TreeViewIPOJO"
-		name="TreeView">
+		name="TreeViewIPOJO">
 		<requires>
             <callback type="bind" method="setPersonManager" />
             <callback type="unbind" method="removePersonManager" />
 		</requires>
 		<provides />
 	</component>
-	<instance component="TreeView" />
-	<instance component="AnnotatedTreeView"/>
+	<instance component="TreeViewIPOJO" />
+	<instance component="AnnotatedTreeViewIPOJO"/>
 </ipojo>

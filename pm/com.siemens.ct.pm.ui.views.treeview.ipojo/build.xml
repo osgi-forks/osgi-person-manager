@@ -1,52 +1,39 @@
 <?xml version="1.0"?>
 
-<project name="com.siemens.ct.pm.ui.views.treeview.ipojo" default="unpackage" basedir=".">
-	
-	<property name="src.dir" value="src"/>
-	<property name="lib.dir" value="libs"/>
-	<property name="build.dir" value="bin"/>
-    <property name="output.dir" value="bin"/>
-    <property name="target.platform" value="../com.siemens.ct.pm.target/eclipse/plugins"/>
-	
-	<taskdef name="ipojo" classpath="lib/org.apache.felix.ipojo.ant-1.4.2.jar" 
-		classname="org.apache.felix.ipojo.task.IPojoTask"/>
-	
+<project name="iPOJO TreeView" default="compile" basedir=".">
+
+	<property name="lib.dir" value="lib" />
+
+	<!-- Load Eclipse properties -->
+	<property file="build.properties" />
+
+	<taskdef name="ipojo" classpath="lib/org.apache.felix.ipojo.ant-1.4.2.jar" classname="org.apache.felix.ipojo.task.IPojoTask" />
+
 	<target name="clean">
-		<delete dir="${build.dir}"/>
-		<delete dir="${output.dir}"/>
+		<delete dir="${output..}" />
 	</target>
-	
+
+
 	<target name="compile" depends="clean">
-	<mkdir dir="${output.dir}"/>
-		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${output..}" />
 
-		<javac  srcdir="${src.dir}"
-		         destdir="${build.dir}"
-		         debug="on"
-				classpath="lib/org.apache.felix.ipojo.annotations-1.4.0.jar;${target.platform}/com.springsource.slf4j.api-1.5.6.jar;../com.siemens.ct.pm.application/bin;../com.siemens.ct.pm.model/bin;../com.siemens.ct.pm.ui.views.treeview/bin"
-		  />
+		<javac srcdir="${source..}" destdir="${output..}" debug="on" classpath="lib/org.apache.felix.ipojo.annotations-1.4.0.jar;../com.siemens.ct.pm.target/eclipse/plugins/org.apache.felix.ipojo-1.4.0.jar;../com.siemens.ct.pm.target/eclipse/plugins/com.springsource.slf4j.api-1.5.6.jar;../com.siemens.ct.pm.application/bin;../com.siemens.ct.pm.model/bin;../com.siemens.ct.pm.ui.views.treeview/bin">
+		</javac>
 
 	</target>
 
-	<target name="package" depends="compile">
-		<jar file="${output.dir}/bundle.jar"
-			manifest="META-INF/MANIFEST.MF"
-		>
-		    <fileset dir="${output.dir}"/>
+	<target name="package">
+		<jar file="${bundle.name}" manifest="META-INF/MANIFEST.MF">
+			<fileset dir="${output..}" />
 		</jar>
-		
-		<ipojo
-				input="${output.dir}/bundle.jar"
-				metadata="metadata.xml"
-		/>
-	</target>
-	
 
-	<target name="unpackage" depends="package">
-		<echo message="Unpackage..."/>
-		<unjar overwrite="true" dest="${output.dir}" src="${output.dir}/bundle.jar"/>
-		<copy file="${output.dir}/META-INF/MANIFEST.mf" tofile="META-INF/MANIFEST.MF"></copy>
-		<delete file="${output.dir}/bundle.jar"/>
+		<ipojo input="${bundle.name}" metadata="metadata.xml" />
 	</target>
+
+
+	<target name="manipulate" depends="compile">
+		<ipojo dir="${output..}" metadata="metadata.xml" manifest="META-INF/MANIFEST.MF" />
+	</target>
+
 
 </project>

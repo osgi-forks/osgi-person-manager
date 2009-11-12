@@ -1,44 +1,44 @@
 Manifest-Version: 1.0
 Require-Bundle: com.siemens.ct.pm.model;bundle-version="1.0.0",com.sie
  mens.ct.pm.application;bundle-version="1.0.0"
-Bundle-Vendor: Siemens AG
-iPOJO-Components: component { $name="TreeView" $classname="com.siemens
- .ct.pm.ui.views.treeview.ipojo.TreeViewIPOJO" provides { }manipulatio
- n { $super="com.siemens.ct.pm.ui.views.treeview.TreeView" method { $n
- ame="$init" }method { $name="getName" $return="java.lang.String" }met
- hod { $name="getPosition" $return="int" }method { $arguments="{com.si
- emens.ct.pm.application.service.ISelectionService}" $name="removeSele
- ctionService" }method { $arguments="{com.siemens.ct.pm.application.se
- rvice.ISelectionService}" $name="setSelectionService" }method { $argu
- ments="{com.siemens.ct.pm.model.IPersonManager}" $name="removePersonM
- anager" }method { $arguments="{com.siemens.ct.pm.model.IPersonManager
- }" $name="setPersonManager" }interface { $name="com.siemens.ct.pm.app
- lication.service.IViewContribution" }interface { $name="com.siemens.c
- t.pm.model.IPersonListener" }}requires { callback { $method="setPerso
- nManager" $type="bind" }callback { $method="removePersonManager" $typ
- e="unbind" }}}instance { $component="TreeView" }instance { $component
- ="AnnotatedTreeView" }component { $name="AnnotatedTreeViewIPOJO" $cla
- ssname="com.siemens.ct.pm.ui.views.treeview.ipojo.AnnotatedTreeViewIP
- OJO" $public="true" provides { }manipulation { $super="com.siemens.ct
- .pm.ui.views.treeview.TreeView" method { $name="$init" }method { $nam
- e="getName" $return="java.lang.String" }method { $name="getPosition" 
- $return="int" }method { $arguments="{com.siemens.ct.pm.application.se
- rvice.ISelectionService}" $name="removeSelectionService" }method { $a
- rguments="{com.siemens.ct.pm.application.service.ISelectionService}" 
- $name="setSelectionService" }method { $arguments="{com.siemens.ct.pm.
- model.IPersonManager}" $name="unbindPersonManager" }method { $argumen
- ts="{com.siemens.ct.pm.model.IPersonManager}" $name="bindPersonManage
- r" }interface { $name="com.siemens.ct.pm.application.service.IViewCon
- tribution" }interface { $name="com.siemens.ct.pm.model.IPersonListene
- r" }}requires { $id="PersonManager" callback { $method="unbindPersonM
- anager" $type="unbind" }callback { $method="bindPersonManager" $type=
- "bind" }}}
 Ant-Version: Apache Ant 1.7.1
+Bundle-Vendor: Siemens AG
+iPOJO-Components: component { $name="TreeViewIPOJO" $classname="com.si
+ emens.ct.pm.ui.views.treeview.ipojo.TreeViewIPOJO" provides { }manipu
+ lation { $super="com.siemens.ct.pm.ui.views.treeview.TreeView" method
+  { $name="$init" }method { $name="getName" $return="java.lang.String"
+  }method { $name="getPosition" $return="int" }method { $arguments="{c
+ om.siemens.ct.pm.application.service.ISelectionService}" $name="remov
+ eSelectionService" }method { $arguments="{com.siemens.ct.pm.applicati
+ on.service.ISelectionService}" $name="setSelectionService" }method { 
+ $arguments="{com.siemens.ct.pm.model.IPersonManager}" $name="removePe
+ rsonManager" }method { $arguments="{com.siemens.ct.pm.model.IPersonMa
+ nager}" $name="setPersonManager" }interface { $name="com.siemens.ct.p
+ m.application.service.IViewContribution" }interface { $name="com.siem
+ ens.ct.pm.model.IPersonListener" }}requires { callback { $method="set
+ PersonManager" $type="bind" }callback { $method="removePersonManager"
+  $type="unbind" }}}instance { $component="TreeViewIPOJO" }instance { 
+ $component="AnnotatedTreeViewIPOJO" }component { $name="AnnotatedTree
+ ViewIPOJO" $classname="com.siemens.ct.pm.ui.views.treeview.ipojo.Anno
+ tatedTreeViewIPOJO" $public="true" provides { }manipulation { $super=
+ "com.siemens.ct.pm.ui.views.treeview.TreeView" method { $name="$init"
+  }method { $name="getName" $return="java.lang.String" }method { $name
+ ="getPosition" $return="int" }method { $arguments="{com.siemens.ct.pm
+ .application.service.ISelectionService}" $name="removeSelectionServic
+ e" }method { $arguments="{com.siemens.ct.pm.application.service.ISele
+ ctionService}" $name="setSelectionService" }method { $arguments="{com
+ .siemens.ct.pm.model.IPersonManager}" $name="unbindPersonManager" }me
+ thod { $arguments="{com.siemens.ct.pm.model.IPersonManager}" $name="b
+ indPersonManager" }interface { $name="com.siemens.ct.pm.application.s
+ ervice.IViewContribution" }interface { $name="com.siemens.ct.pm.model
+ .IPersonListener" }}requires { $id="PersonManager" callback { $method
+ ="unbindPersonManager" $type="unbind" }callback { $method="bindPerson
+ Manager" $type="bind" }}}
 Bundle-Version: 1.0.0.qualifier
 Bundle-Name: TreeView iPOJO Plug-in
-Bundle-ManifestVersion: 2
 Created-By: 11.2-b01 (Sun Microsystems Inc.) & iPOJO & iPOJO & iPOJO &
   iPOJO & iPOJO & iPOJO & iPOJO
+Bundle-ManifestVersion: 2
 Import-Package: org.osgi.service.log;version=1.3, com.siemens.ct.pm.ui
  .views.treeview, org.apache.felix.ipojo.architecture;version=1.4.0, o
  rg.apache.felix.ipojo;version=1.4.0, org.osgi.service.cm;version=1.2,
