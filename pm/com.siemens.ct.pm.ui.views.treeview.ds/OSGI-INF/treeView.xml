@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<component name="com.siemens.ct.pm.ui.views.treeView">
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.siemens.ct.pm.ui.views.treeView">
     <implementation
         class="com.siemens.ct.pm.ui.views.treeview.ds.TreeViewDS"/>
     <service>
@@ -20,4 +20,4 @@
         unbind="removeSelectionService"
         cardinality="0..1"
         policy="dynamic"/>
- </component>
+ </scr:component>
