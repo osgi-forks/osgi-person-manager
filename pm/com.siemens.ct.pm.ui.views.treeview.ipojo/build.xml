@@ -7,7 +7,7 @@
 	<!-- Load Eclipse properties -->
 	<property file="build.properties" />
 
-	<taskdef name="ipojo" classpath="lib/org.apache.felix.ipojo.ant-1.4.2.jar" classname="org.apache.felix.ipojo.task.IPojoTask" />
+	<taskdef name="ipojo" classpath="lib/org.apache.felix.ipojo.ant-1.6.0.jar" classname="org.apache.felix.ipojo.task.IPojoTask" />
 
 	<target name="clean">
 		<delete dir="${output..}" />
@@ -17,7 +17,7 @@
 	<target name="compile" depends="clean">
 		<mkdir dir="${output..}" />
 
-		<javac srcdir="${source..}" destdir="${output..}" debug="on" classpath="lib/org.apache.felix.ipojo.annotations-1.4.0.jar;../com.siemens.ct.pm.target/eclipse/plugins/org.apache.felix.ipojo-1.4.0.jar;../com.siemens.ct.pm.target/eclipse/plugins/com.springsource.slf4j.api-1.5.6.jar;../com.siemens.ct.pm.application/bin;../com.siemens.ct.pm.model/bin;../com.siemens.ct.pm.ui.views.treeview/bin">
+		<javac srcdir="${source..}" destdir="${output..}" debug="on" classpath="lib/org.apache.felix.ipojo.annotations-1.6.0.jar;../com.siemens.ct.pm.target/eclipse/plugins/org.apache.felix.ipojo-1.6.0.jar;../com.siemens.ct.pm.target/eclipse/plugins/com.springsource.slf4j.api-1.5.6.jar;../com.siemens.ct.pm.application/bin;../com.siemens.ct.pm.model/bin;../com.siemens.ct.pm.ui.views.treeview/bin">
 		</javac>
 
 	</target>
