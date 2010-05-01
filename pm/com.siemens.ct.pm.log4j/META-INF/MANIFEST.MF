@@ -5,4 +5,3 @@ Bundle-SymbolicName: com.siemens.ct.pm.log4j
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Siemens AG
 Fragment-Host: com.springsource.org.apache.log4j
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
