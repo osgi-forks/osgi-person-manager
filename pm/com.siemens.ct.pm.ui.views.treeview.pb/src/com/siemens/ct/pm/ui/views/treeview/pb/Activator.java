@@ -33,6 +33,7 @@ import com.google.inject.Injector;
 import com.siemens.ct.pm.application.service.IViewContribution;
 import com.siemens.ct.pm.model.IPersonManager;
 
+@SuppressWarnings("deprecation")
 public class Activator implements BundleActivator {
 
 	private TreeViewPeaberry treeView;
