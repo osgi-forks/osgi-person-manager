@@ -1,24 +1,19 @@
 package com.siemens.ct.pm.extender;
 
-import java.util.HashMap;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
-import org.osgi.framework.ServiceRegistration;
 import org.osgi.util.tracker.BundleTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ExtenderBundleTracker extends BundleTracker {
 
-	private final HashMap<String, ServiceRegistration> serviceMap;
 	private final Logger logger = LoggerFactory
 			.getLogger(ExtenderBundleTracker.class);
 
 	public ExtenderBundleTracker(BundleContext context) {
-		super(context, 0xFF, null);
-		serviceMap = new HashMap<String, ServiceRegistration>();
+		super(context, Bundle.ACTIVE, null);
 	}
 
 	@Override
@@ -30,23 +25,21 @@ public class ExtenderBundleTracker extends BundleTracker {
 			try {
 				clazz = bundle.loadClass(className);
 				try {
-					ServiceRegistration serviceRegistration = bundle
-							.getBundleContext()
+					bundle.getBundleContext()
 							.registerService(
 									"com.siemens.ct.pm.application.service.IActionContribution",
 									clazz.newInstance(), null);
-					serviceMap.put(bundle.getSymbolicName(),
-							serviceRegistration);
 					logger.info("Extender Action Contribution Service registered for: "
 							+ clazz.getName());
 
 				} catch (InstantiationException e) {
-					e.printStackTrace();
+					logger.error("Could not instantiate " + className, e);
 				} catch (IllegalAccessException e) {
-					e.printStackTrace();
+					logger.error("Illegal access during instatiation of class "
+							+ className, e);
 				}
 			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				logger.error("Could not find class " + className, e);
 			}
 		}
 		return bundle;
