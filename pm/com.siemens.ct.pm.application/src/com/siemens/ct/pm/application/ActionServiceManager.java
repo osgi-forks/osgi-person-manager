@@ -68,9 +68,7 @@ public class ActionServiceManager {
 
 				for (Action action : actions) {
 					JButton button = new JButton(action);
-					button
-							.setToolTipText((String) action
-									.getValue(Action.NAME));
+					button.setToolTipText((String) action.getValue(Action.NAME));
 					toolBar.add(button);
 
 					if (actionsMenu != null) {
@@ -101,6 +99,7 @@ public class ActionServiceManager {
 			final IActionContribution actionContribution) {
 		Runnable uiUpdater = new Runnable() {
 			public void run() {
+				logger.info("removing service: " + actionContribution);
 
 				List<Action> actions = actionContribution.getActions();
 
