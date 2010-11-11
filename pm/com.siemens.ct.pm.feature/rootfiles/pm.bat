@@ -1,1 +1,1 @@
-java -jar plugins/org.eclipse.osgi_3.5.0.v20090311-1300.jar -console
+java -jar plugins/org.eclipse.osgi_3.6.1.R36x_v20100806.jar -console

@@ -25,7 +25,7 @@
 
 	<resources>
 		<!-- Reference to the launcher jar. The version segment must be updated to the version being used-->
-		<jar href="plugins/org.eclipse.equinox.launcher_1.0.201.R35x_v20090715.jar" />
+		<jar href="plugins/org.eclipse.equinox.launcher_1.1.0.v20100507.jar" />
 
 		<!-- Reference to all the plugins and features constituting the application -->
 		<!-- Here we are referring to the wrapper feature since it transitively refers to all the other plug-ins  necessary -->
