@@ -7,7 +7,7 @@
 		<!-- vendor name -->
 		<vendor>Kai Tödter</vendor>
 		<!-- vendor homepage -->
-		<homepage href="http://max-server.myftp.org/trac/pm" />
+		<homepage href="https://max-server.myftp.org/trac/pm" />
 		<!-- product description -->
 		<description>Person Manager is a demo application to demonstrate best practices when it comes to dynamic OSGi based applications</description>
 		<icon kind="splash" href="splash.gif" />
